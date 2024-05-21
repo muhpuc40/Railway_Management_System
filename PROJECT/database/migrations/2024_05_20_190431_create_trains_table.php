@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('capacity',250);
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id')->references('id')->on('routes');
-            
             $table->timestamps();
+            
         }); 
     }
 
