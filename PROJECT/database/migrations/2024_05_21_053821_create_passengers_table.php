@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('address',250);
             $table->bigInteger('phone');
             $table->string('email',100);
+            $table->string('password',100);
+            $table->string('status',100);
             $table->timestamps();
         });
     }
@@ -29,3 +31,5 @@ return new class extends Migration
         Schema::dropIfExists('passengers');
     }
 };
+
+
