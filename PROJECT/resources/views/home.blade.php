@@ -20,11 +20,11 @@
                             <!-- Left Column for From and To fields -->
                             <div class="col-md-6">
                                 <div class="form-group mt-3">
-                                    <label for="fromStation">{{ __('From') }}</label>
+                                    <b><label for="fromStation">{{ __('From') }}</label></b>
                                     <input type="text" class="form-control" id="fromStation" name="fromStation" placeholder="From Station" required>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <label for="dateOfJourney">{{ __('Date of Journey') }}</label>
+                                    <b><label for="dateOfJourney">{{ __('Date of Journey') }}</label></b>
                                     <input type="date" class="form-control" id="dateOfJourney" name="dateOfJourney" required>
                                 </div>
                                 
@@ -33,11 +33,11 @@
                             <!-- Right Column for Date and Class fields -->
                             <div class="col-md-6">
                                 <div class="form-group mt-3">
-                                    <label for="toStation">{{ __('To') }}</label>
+                                    <b><label for="toStation">{{ __('To') }}</label></b>
                                     <input type="text" class="form-control" id="toStation" name="toStation" placeholder="To Station" required>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <label for="class">{{ __('Choose Class') }}</label>
+                                   <b><label for="class">{{ __('Choose Class') }}</label></b> 
                                     <select class="form-control" id="class" name="class" required>
                                         <option value="">{{ __('Choose a Class') }}</option>
                                         <option value="1">{{ __('First Class') }}</option>
