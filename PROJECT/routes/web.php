@@ -21,6 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::get('/Admin/Create_Train', [App\Http\Controllers\TrainController::class, 'createt']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/Admin/Create_Route', [App\Http\Controllers\TrainController::class, 'creater']);
