@@ -1,129 +1,53 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    @vite(['resources/sass/app.scss', 'resources/css/app.css'])
+    @vite(['resources/sass/app.scss', 'resources/js/admin.js'])
+    @vite(['resources/sass/app.scss', 'resources/css/admin.css'])
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    <img src="{{ asset('images/logo.png') }}" class="img-fluid custom-img-size" alt="Promotional Image">
-                    <b>{{ __('Bangladesh Railway') }}</b>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto"></ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @auth
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endauth
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+            <h4><b>Bangladesh Railway</b></h4>
 
-        <div class="container-fluid p-0 d-flex h-100">
-            <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-success text-white" style="width: 250px;">
-                <a href="#" class="navbar-brand"></a>
-                
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-regular fa-user"></i>
-                            Profile
-                        </a>
-                    </li>
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-regular fa-bookmark"></i>
-                            Saved Articles
-                            <span class="notification-badge">5</span>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-regular fa-newspaper"></i>
-                            Articles
-                        </a>
-                    </li>
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-solid fa-archway"></i>
-                            Institutions
-                        </a>
-                    </li>
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-regular fa-newspaper"></i>
-                            Articles
-                        </a>
-                    </li>
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-solid fa-archway"></i>
-                            Institutions
-                        </a>
-                    </li>
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            Organizations
-                        </a>
-                    </li>
-
-                    <li class="nav-item mb-1">
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            Organizations
-                        </a>
-                    </li>
-                </ul>
-                <hr>
-
-            </div>
-            <div class="bg-light flex-fill">
-                <main class="py-4">
-                    @yield('content')
-                </main>
-            </div>
+            <div class="header_img"> <img src="{{ asset('images/logo.png') }}" class="img-fluid custom-img-size"
+                    alt="Promotional Image"> </div>
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
+                            class="nav_logo-name">Mr. Admin</span> </a>
+                    <div class="nav_list"> <a href="#" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i>
+                            <span class="nav_name">Dashboard</span> </a> <a href="#" class="nav_link"> <i
+                                class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a> <a href="#"
+                            class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span
+                                class="nav_name">Messages</span> </a> <a href="#" class="nav_link"> <i
+                                class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a> <a
+                            href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span
+                                class="nav_name">Files</span> </a> <a href="#" class="nav_link"> <i
+                                class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>
+                    </div>
+                </div> 
+                <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> 
+                <span class="nav_name">SignOut</span> </a>
+            </nav>
         </div>
-    </div>
+        <!--Container Main start-->
+        <main class="py-4">
+            @yield('content')
+        </main>
+        <!--Container Main end-->
+    </body>
 
-</body>
 </html>
