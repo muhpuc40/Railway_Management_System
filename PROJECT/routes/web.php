@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrainController;
+use App\Http\Controllers\RouteController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -22,14 +23,12 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// Route to show the train creation form
-Route::get('/Admin/Create_Train', [TrainController::class, 'createt'])->name('Create_Train');
-
-// Route to handle the train creation form submission
+Route::get('/Admin/Create_Train', [TrainController::class, 'createTrain'])->name('Create_Train');
 Route::post('/Admin/Create_Train', [TrainController::class, 'storeTrain'])->name('Create_Train');
+Route::get('/Admin/Show_Train', [TrainController::class, 'showTrain'])->name('Show_Train');
 
-// Route to show the route creation form
-Route::get('/Admin/Create_Route', [TrainController::class, 'creater'])->name('Create_Route');
 
-// Route to handle the route creation form submission
-Route::post('/Admin/Create_Route', [TrainController::class, 'create_route'])->name('Create_Route');
+Route::get('/Admin/Create_Route', [RouteController::class, 'createRoute'])->name('Create_Route');
+Route::post('/Admin/Create_Route', [RouteController::class, 'storeRoute'])->name('Create_Route');
+Route::get('/Admin/Show_Route', [RouteController::class, 'showRoute'])->name('Show_Route');
+

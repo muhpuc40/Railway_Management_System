@@ -1,37 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TrainController extends Controller
 {
-    public function createt()
+    public function createTrain()
     {
-
         $routes = DB::table('routes')->get();
         return view('Admin.create_train', ['routes' => $routes]);
     }
 
-    public function creater()
+    public function showTrain()
     {
-        return view('Admin.create_route');
-    }
-
-    public function create_route(Request $req)
-    {
-        $user = DB::table('routes')->insert([
-            'source' => $req->source,
-            'destination' => $req->destination,
-            'distance' => $req->distance,
-            'duration' => $req->duration,
-        ]);
-
-        if ($user) {
-            return redirect()->route('Create_Route')->with('success', 'Data added successfully!');
-        } else {
-            return redirect()->route('Create_Route')->with('error', 'Error adding data!');
-        }
+        $trains = DB::table('trains')->get();
+        return view('Admin.show_train', ['trains' => $trains]);
     }
 
     public function storeTrain(Request $req)
