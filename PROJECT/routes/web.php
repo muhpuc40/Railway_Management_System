@@ -1,6 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrainController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!!
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
@@ -19,8 +20,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/Admin/Create_Train', [App\Http\Controllers\TrainController::class, 'createt']);
+// Route to show the train creation form
+Route::get('/Admin/Create_Train', [TrainController::class, 'createt'])->name('Create_Train');
 
-Route::get('/Admin/Create_Route', [App\Http\Controllers\TrainController::class, 'creater']);
+// Route to handle the train creation form submission
+Route::post('/Admin/Create_Train', [TrainController::class, 'storeTrain'])->name('Create_Train');
+
+// Route to show the route creation form
+Route::get('/Admin/Create_Route', [TrainController::class, 'creater'])->name('Create_Route');
+
+// Route to handle the route creation form submission
+Route::post('/Admin/Create_Route', [TrainController::class, 'create_route'])->name('Create_Route');
