@@ -1,3 +1,3 @@
-<p align="center"><img src="PROJECT/public/images/shutdown.jpg" width="400" alt="img"></p>
-
 ## ReadMe Under construction....
+
+<p align="center"><img src="PROJECT/public/images/shutdown.jpg" width="400" alt="img"></p>
