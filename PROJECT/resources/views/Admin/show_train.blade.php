@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <p class="card-text">
                             <small class="text-muted">
-                                Created at: {{ Carbon::parse($train->created_at)->format('d-m-Y') }}
+                                Created at: {{ Carbon::parse($train->created_at)->format('d-m-Y') }}<br>
                                 Updated at: {{ Carbon::parse($train->updated_at)->format('d-m-Y') }}
                             </small>
                         </p>
