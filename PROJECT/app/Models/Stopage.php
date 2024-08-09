@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Stopage extends Model
 {
     use HasFactory;
-   
+
 
     protected $fillable = ['train_id', 'sequence', 'source_station', 'time'];
 
