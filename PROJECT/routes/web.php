@@ -5,6 +5,7 @@ use App\Http\Controllers\TrainController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\FareController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PdfController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,9 @@ use App\Http\Controllers\AuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+
 
 Route::get('/', [TrainController::class, 'class']);
 
@@ -53,3 +57,8 @@ Route::get('/registration', [AuthController::class,'viewRegister'])->name('regis
 Route::post('/createUser', [AuthController::class, 'register'])->name('createUser');
 Route::get('/login', [AuthController::class,'viewLogin'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'login'])->name('checkLogin');
+
+
+
+
+Route::get('/download-fare-pdf', [PdfController::class, 'downloadFarePdf'])->name('download_fare_pdf');
