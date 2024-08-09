@@ -62,3 +62,5 @@ Route::post('/checkLogin', [AuthController::class, 'login'])->name('checkLogin')
 
 
 Route::get('/download-fare-pdf', [PdfController::class, 'downloadFarePdf'])->name('download_fare_pdf');
+Route::get('/generate-ticket', [PdfController::class, 'generateTicket']);
+

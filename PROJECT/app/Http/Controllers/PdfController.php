@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+//use PDF;
+
 class PdfController extends Controller
 {
     public function downloadFarePdf()
@@ -39,4 +42,51 @@ class PdfController extends Controller
         // Return the PDF as a download
         return $pdf->download('train_fares.pdf');
     }
+
+public function generateTicket()
+{
+    // Path to the images
+  //  $logoPath = public_path('images/logo.png');
+   // $bdLogoPath = public_path('images/bd.png');
+
+    // Convert images to base64
+   // $logoBase64 = base64_encode(file_get_contents($logoPath));
+   // $bdLogoBase64 = base64_encode(file_get_contents($bdLogoPath));
+   $qrcode = base64_encode(QrCode::format('svg')                                
+                                    ->size(100)
+                                    ->errorCorrection('H')                                
+                                    ->generate('Minhaj'));
+    // Sample data for the PDF
+    $data = [
+        'issue_date' => '05-01-2024 08:55',
+        'journey_date' => '06-01-2024 18:00',
+        'train_name' => 'MEGHNA EXPRESS [729]',
+        'from_station' => 'Chattogram',
+        'to_station' => 'Feni',
+        'class_name' => 'SHOVAN',
+        'coach_seat' => 'SCHA-26',
+        'num_seats' => 1,
+        'num_adult' => 1,
+        'num_child' => 0,
+        'fare' => 'BDT 90.00',
+        'vat' => 'BDT 0.00',
+        'service_charge' => 'BDT 20.00',
+        'total_fare' => 'BDT 110.00',
+        'passenger_name' => 'MD. FORKAN HASAN MEHEDI',
+        'id_type' => 'NID',
+        'id_number' => '5066714873',
+        'mobile_number' => '01717172939',
+        'pnr_number' => '65976F9F1B793',
+        'qrcode' => $qrcode
+      //  'logoBase64' => $logoBase64,
+       // 'bdLogoBase64' => $bdLogoBase64
+    ];
+
+    // Load the view and pass the data
+    $pdf = PDF::loadView('pdf.ticket', $data);
+
+    // Optionally stream or download the PDF
+    return $pdf->download('train_ticket.pdf');
+}
+
 }

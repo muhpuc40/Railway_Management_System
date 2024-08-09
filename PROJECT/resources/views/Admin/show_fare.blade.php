@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="text-center">Cart of all train fares</h2>
+            <h2 class="text-center">Cart of all Train fares</h2>
             <a href="{{ route('download_fare_pdf') }}" class="btn btn-primary">Download PDF</a>
         </div>
         

@@ -77,11 +77,19 @@ class TrainController extends Controller
         return view('Admin.show_train', ['trains' => $trains]);
     }
     
+
     public function updateTrain(Request $request, $id)
-    {
-        DB::table('train_list')->where('id', $id)->update(['name' => $request->name]);
-        return redirect()->back()->with('success', 'Train updated successfully');
-    }
+{
+    DB::table('train_list')
+        ->where('id', $id)
+        ->update([
+            'name' => $request->name,
+            'updated_at' => now() // Update the updated_at column
+        ]);
+
+    return redirect()->back()->with('success', 'Train updated successfully');
+}
+
 
     public function deleteTrain($id)
     {
