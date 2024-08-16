@@ -156,5 +156,6 @@
             <p>Wishing you a pleasant and safe journey— <strong>Bangladesh Railway</strong> </p>
         </div>
     </div>
+    <p align="center">Download time : {{$time}}</p>
 </body>
 </html>
