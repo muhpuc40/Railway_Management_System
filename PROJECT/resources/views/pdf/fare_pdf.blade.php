@@ -83,7 +83,7 @@
         </tbody>
     </table>
     <div class="footer">
-Pdf generate by minhaj
+Pdf generate by minhaj || Download time : {{$time}}
         </div>
 </body>
 </html>

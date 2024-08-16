@@ -35,9 +35,10 @@ class PdfController extends Controller
             $stopageKey = "{$fare->source_station} to {$fare->destination_station}";
             $groupedFares[$fare->train_name][$stopageKey][$fare->class] = $fare->fare;
         }
+        $time = now();
 
         // Load the view and pass the data
-        $pdf = Pdf::loadView('pdf.fare_pdf', compact('groupedFares', 'classes'));
+        $pdf = Pdf::loadView('pdf.fare_pdf', compact('groupedFares', 'classes','time'));
 
         // Return the PDF as a download
         return $pdf->download('train_fares.pdf');
@@ -72,12 +73,13 @@ public function generateTicket()
         'vat' => 'BDT 0.00',
         'service_charge' => 'BDT 20.00',
         'total_fare' => 'BDT 110.00',
-        'passenger_name' => 'MD. FORKAN HASAN MEHEDI',
+        'passenger_name' => 'Minhaj U Hassan',
         'id_type' => 'NID',
         'id_number' => '5066714873',
         'mobile_number' => '01717172939',
         'pnr_number' => '65976F9F1B793',
-        'qrcode' => $qrcode
+        'qrcode' => $qrcode,
+        'time' => now()
       //  'logoBase64' => $logoBase64,
        // 'bdLogoBase64' => $bdLogoBase64
     ];
@@ -85,8 +87,11 @@ public function generateTicket()
     // Load the view and pass the data
     $pdf = PDF::loadView('pdf.ticket', $data);
 
+    
+    $filename =  $data['passenger_name'] . ' Train-Ticket.pdf';
+
     // Optionally stream or download the PDF
-    return $pdf->download('train_ticket.pdf');
+    return $pdf->download($filename);
 }
 
 }
