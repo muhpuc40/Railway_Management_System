@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             background-color: #ffffff;
-            
         }
         .container {
             width: 186mm;
@@ -19,6 +18,8 @@
             background-color: #ffffff;
             border: 3px solid #28a745;
             box-sizing: border-box; 
+            position: relative;
+            left: -3mm; /* Adjust this value to move further left */
         }
         .header {
             text-align: center;
@@ -28,14 +29,14 @@
         }
         .header h1 {
             color: #0073e6;
-            font-size: 28px;
+            font-size: 32px;
             margin: 0;
             margin-top: 15px; /* Adjusted to push it down slightly */
         }
         .qr-code {
             position: absolute;
-            top: 60px; /* Adjusted to move it just below the margin line */
-            right: 12;
+            top: 16px; /* Adjusted to move it just below the margin line */
+            right: 18px;
             width: 80px;
             height: 40px;
             border: 1px solid #ddd;
@@ -46,20 +47,12 @@
         }
         .logo-left {
             position: absolute;
-            margin-top: -15px;
-            top: 0;
-            left: 0;
-            width: 60px;
-            height: 60px;
+            top: 10px;
+            left: 5px;
+            width: 50px; /* Reduced width */
+            height: 50px; /* Reduced height */
         }
-        .logo-right {
-            position: absolute;
-            margin-top: -15px;
-            top: 0;
-            right: 50px;
-            width: 60px;
-            height: 60px;
-        }
+
         .journey-info, .passenger-info {
             margin-bottom: 15px;
             clear: both;
@@ -102,15 +95,15 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- <img src="{{ public_path('logo.png') }}" class="logo-left"> -->
+            <img src="{{ public_path('images/logo.png') }}" class="logo-left">
             <h1>BANGLADESH RAILWAY</h1>
-            <!-- <img src="{{ public_path('bd.png') }}" class="logo-right"> -->
+            
             <div class="qr-code"><img src="data:image/png;base64,{{ $qrcode }}"></div>
         </div>
         <div style="position: relative;">
             <p>Dear {{ $passenger_name }},</p>
-            <p style="max-width: 75%; float: left; font-size: 16px;">
-                Your request to book e-ticket for your journey in Bangladesh Railway was successful. 
+            <p style=" max-width: 80%;float: left; font-size: 16px;margin-top: -5px;">
+                Your request to book an e-ticket for your journey with Bangladesh Railway was successful. 
                 The details of your e-ticket are as below:
             </p>
         </div>
@@ -123,7 +116,7 @@
                 <tr><td>From Station:</td><td>{{ $from_station }}</td></tr>
                 <tr><td>To Station:</td><td>{{ $to_station }}</td></tr>
                 <tr><td>Class Name:</td><td>{{ $class_name }}</td></tr>
-                <tr><td>Coach Name / Seat (s):</td><td>{{ $coach_seat }}</td></tr>
+                <tr><td>Coach Name / Seat(s):</td><td>{{ $coach_seat }}</td></tr>
                 <tr><td>No. of Seats:</td><td>{{ $num_seats }}</td></tr>
                 <tr><td>No. of Adult Passenger(s):</td><td>{{ $num_adult }}</td></tr>
                 <tr><td>No. of Child Passenger(s):</td><td>{{ $num_child }}</td></tr>
@@ -149,8 +142,8 @@
             <p><strong>Please Note:</strong></p>
             <ul>
                 <li>Carrying NID or Photo ID while travelling is mandatory for each passenger.</li>
-                <li>You can carry either soft copy or printed copy of your e-ticket while travelling.</li>
-                <li>No need to print e-ticket from the counter.</li>
+                <li>You can carry either a soft copy or printed copy of your e-ticket while travelling.</li>
+                <li>No need to print the e-ticket from the counter.</li>
             </ul>
 
             <p>Wishing you a pleasant and safe journey— <strong>Bangladesh Railway</strong> </p>
