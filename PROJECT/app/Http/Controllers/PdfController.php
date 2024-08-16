@@ -53,6 +53,8 @@ public function generateTicket()
     // Convert images to base64
    // $logoBase64 = base64_encode(file_get_contents($logoPath));
    // $bdLogoBase64 = base64_encode(file_get_contents($bdLogoPath));
+
+   
    $qrcode = base64_encode(QrCode::format('svg')                                
                                     ->size(100)
                                     ->errorCorrection('H')                                
