@@ -118,6 +118,11 @@ class TrainController extends Controller
         // Fetch train details along with route
         $train = DB::table('train_list')->where('id', $id)->first();
 
+        //if id not found
+        if (!$train) {
+            abort(404);
+        }
+        
         // Fetch stoppages
         $stopages = DB::table('train_stopage')
             ->where('train_id', $id)

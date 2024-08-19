@@ -12,6 +12,12 @@ class ScheduleController extends Controller
     public function createSchedule($train_id)
     {
         $train = DB::table('train_list')->find($train_id);
+        
+        //if id not found
+        if (!$train) {
+            abort(404);
+        }
+
 
         // Fetch existing schedule details
         $days = DB::table('train_day')->where('train_id', $train_id)->first();
