@@ -136,7 +136,7 @@ class ScheduleController extends Controller
             DB::table('train_day')->where('id', $schedule_id)->update($daysData);
     
             DB::commit();
-            return redirect()->route('show_train')->with('success', 'Schedule updated successfully.');
+            return redirect()->route('create_schedule', ['train_id' => $train_id])->with('success', 'Schedule updated successfully.');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('create_schedule', ['train_id' => $train_id])->with('error', 'Error updating schedule!');
