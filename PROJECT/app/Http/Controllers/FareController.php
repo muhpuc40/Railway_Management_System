@@ -151,7 +151,7 @@ class FareController extends Controller
             }
     
             DB::commit();
-            return redirect()->route('show_fare')->with('success', 'Fares updated successfully!');
+            return redirect()->route('create_fare', ['train_id' => $train_id])->with('success', 'Fares updated successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('create_fare', ['train_id' => $train_id])->with('error', 'Update Gora nojar!');
