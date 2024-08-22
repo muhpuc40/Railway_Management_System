@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <b><label for="dateOfJourney">{{ __('Date of Journey') }}</label></b>
-                                <input type="date" class="form-control" id="datePicker" name="dateOfJourney" min="{{ $today }}" max="{{ $maxDate }}" required>
+                                <input type="date" class="form-control" id="datePicker" name="dateOfJourney" >
                             </div>
                         </div>
 
