@@ -53,12 +53,16 @@ Route::put('/admin/update_fare/{train_id}', [FareController::class, 'updateFare'
 
 
 
-Route::get('/registration', [AuthController::class,'viewRegister'])->name('registration');
-Route::post('/createUser', [AuthController::class, 'register'])->name('createUser');
-Route::get('/login', [AuthController::class,'viewLogin'])->name('login');
-Route::post('/checkLogin', [AuthController::class, 'login'])->name('checkLogin');
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthController::class, 'loginIndex']);
+    Route::get('register', [AuthController::class, 'registerIndex']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+});
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('logout', [AuthController::class, 'logout']);
+});
 
 
 Route::get('/download-fare-pdf', [PdfController::class, 'downloadFarePdf'])->name('download_fare_pdf');

@@ -1,59 +1,67 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
+use App\Models\User; // Add this line to import the User model
+use Illuminate\Support\Facades\Auth; // Add this line to use the Auth facade
+use Illuminate\Support\Facades\Hash; // Add this line to use the Hash facade
 
 class AuthController extends Controller
 {
-    public function viewRegister()
+    public function loginIndex()
     {
-        return view('auth.registration');
+        return view('login');
     }
 
-    public function register(Request $r)
+    public function registerIndex()
     {
-        $data = $r->validate([
-            'email' => 'required|email|unique:users,email',
-            'name' => 'required',
-            'dob' => 'required|date',
-            'password' => 'required|confirmed|min:4', // Ensure password is confirmed and has a minimum length
-        ]);
-
-        // Hash the password before saving it
-        //$data['password'] = Hash::make($data['password']);
-
-        // Create the user
-        $user = User::create($data);
-        if($user){
-            return redirect()->route('login');
-        }
+        return view('register');
     }
 
-    public function viewLogin()
+    public function login(Request $request)
     {
-        return view('auth.login');
-    }
-
-    public function login(Request $r)
-    {
-        $credentials = $r->validate([
+        $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|min:6',
         ]);
-    
+
+        $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            return redirect('/');
         }
-    
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->withInput($r->only('email'));
+
+        toastr()->error('Invalid email or password');
+        return redirect('login');
     }
+
+    public function register(Request $request)
+    {
+    $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'date_of_birth' => 'required|date',
+        'password' => 'required|min:6|confirmed', // Add the 'confirmed' rule       
+    ]);
+
+    $user = new User();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->dob = $request->date_of_birth;
+    $user->password = Hash::make($request->password); // Hash the password before saving
+    $user->save();
+
+    Auth::login($user);
+    toastr()->success('Registration successful!');
+    return redirect('/');
+   }
+
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        toastr()->success('Logout successful!');
+        return redirect('/');
     }
 }
+
