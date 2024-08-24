@@ -67,7 +67,7 @@ class ScheduleController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('show_train')->with('success', 'Schedule added successfully!');
+            return redirect()->route('create_schedule',['train_id' => $train_id])->with('success', 'Schedule added successfully!');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('create_schedule', ['train_id' => $train_id])->with('error', 'Error adding schedule!');
