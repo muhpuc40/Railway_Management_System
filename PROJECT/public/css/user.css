@@ -1,4 +1,6 @@
+
 body {
+    font-family: Arial, sans-serif;
     margin-top: 75px; /* Adjust based on the height of your navbar */
 }
 
@@ -102,7 +104,6 @@ main {
 }
 
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 /*--------------------------------------------------------------
 # General
@@ -307,4 +308,185 @@ p {
 
 .fa-chevron-down:hover {
     color: #333; 
+}
+
+/* New */
+
+.train-details {
+    display: none;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.fa-chevron-down.rotated {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.train-details {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.train-details strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.train-card .ticket-section {
+    margin-top: 5px;
+}
+
+.ticket-type {
+    background-color: #e0e6e1;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 140px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 5px; /* Reduce horizontal margin for less space between boxes */
+}
+
+.ticket-type .ticket-class {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #316796;
+    margin-bottom: 5px;
+}
+
+.ticket-type .ticket-price {
+    font-size: 1.4rem; /* Slightly reduced font size */
+    font-weight: bold;
+    color: hsl(134, 61%, 41%);
+    margin-bottom: 5px; /* Reduced space below */
+}
+
+.ticket-type .ticket-availability {
+    font-size: 0.8rem; /* Slightly reduced font size */
+    color: #6c757d;
+    margin-bottom: 5px; /* Reduced space below */
+}
+
+.ticket-type .ticket-available {
+    font-size: 0.9rem; /* Slightly reduced font size */
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px; /* Adjusted space for better alignment */
+}
+
+.ticket-type .btn {
+    background-color: #139124;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.875rem; /* Slightly reduced font size */
+}
+
+.ticket-type .btn:hover {
+    background-color: #00a01b;
+}
+
+.ticket-type {
+    border: 2px solid transparent; /* Default state without outline */
+    border-radius: 10px; /* Optional: for rounded corners */
+    transition: border-color 0.3s ease; /* Smooth transition effect */
+}
+
+.ticket-type:hover {
+    border-color: green; /* Green outline on hover */
+}
+
+/*Modal*/
+.modal-dialog {
+    width: 300px !important; /* Set the desired width */
+    max-width: 100%; /* Ensure it doesn't exceed the screen size */
+    margin: auto; /* Center the modal */
+}
+
+.modal-content {
+    border-radius: 5px;
+    background-color: #fff;
+    height: 280px; /* Default height */
+    max-height: 400px; /* Set maximum height for the modal */
+    overflow-y: auto; /* Enable scrolling if content exceeds max height */
+}
+
+.modal-body {
+    padding-top: 0.5rem; /* Reduce top padding */
+    padding-bottom: 0.5rem; /* Reduce bottom padding */
+    /*padding: 1rem;  Adjust padding for content */
+    overflow-y: auto; /* Enable scrolling within the body if content exceeds max height */
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0.5rem;
+}
+
+.modal-title {
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #28a745; /* Green color */
+}
+
+.btn-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+}
+
+#emailInp1 {
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#emailInp1::placeholder {
+    color: #a9a9a9;
+}
+
+#login-btn{
+    background-color: #0e6322; /* Darker green color */
+    border-color: #28a745; /* Green color */
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px 10px; /* Adjust padding for button content */
+    text-align: center; /* Center the text */
+    white-space: nowrap; /* Prevent text wrapping */
+    margin-top: 0.5rem;
+}
+
+#login-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.modal-footer a {
+    font-size: 0.875rem;
+    color: #04882b; /* Red color for links */
+}
+
+.modal-footer a:hover {
+    text-decoration: underline;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(10% - 1rem);
+}
+
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
