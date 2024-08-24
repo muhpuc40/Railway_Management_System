@@ -63,5 +63,6 @@ class AuthController extends Controller
         toastr()->success('Logout successful!');
         return redirect('/');
     }
+
 }
 

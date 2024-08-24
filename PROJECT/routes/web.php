@@ -6,6 +6,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\FareController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\AvailabilityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +53,9 @@ Route::get('/admin/Show_Fare', [FareController::class, 'showFare'])->name('Show_
 Route::put('/admin/update_fare/{train_id}', [FareController::class, 'updateFare'])->name('update_fare'); //path er kaj nai
 
 
+Route::get('/train-availability', [AvailabilityController::class, 'showAvailability'])
+  //  ->middleware('auth') 
+    ->name('train-availability.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthController::class, 'loginIndex']);

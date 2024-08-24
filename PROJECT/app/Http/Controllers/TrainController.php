@@ -3,25 +3,29 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Route;
 
 class TrainController extends Controller
 {
+    
     public function class()
     {
         $today = date('Y-m-d');
         $maxDate = date('Y-m-d', strtotime('+6 days'));
+
+        // Fetch all routes from the 'route' table
+        $routes = Route::select('route_name')->get();
+
+        // Fetch distinct classes from the 'train_details' table
         $classes = DB::table('train_details')->distinct()->pluck('class');
-        return view('welcome', compact('today', 'maxDate','classes'));
+
+        return view('welcome', compact('today', 'maxDate', 'classes', 'routes'));
     }
-    public function searchTrains(Request $request)
-    {
-        $fromStation = $request->input('fromStation');
-        $toStation = $request->input('toStation');
 
 // add korte hobee
     
-        return view('user.search_trains', compact('groupedFares', 'classes'));
-    }
+        // return view('user.search_trains', compact('groupedFares', 'classes'));
+    // }
     
 
     public function showSearchForm()
