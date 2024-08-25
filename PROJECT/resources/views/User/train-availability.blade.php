@@ -80,13 +80,13 @@
                         @enderror
                     </div>
                     <div class="col-12">
-                        <input type="password" class="form-control p-2 mb-2" id="emailInp1" name="password" placeholder="********" autocomplete="current-password" required>
+                        <input type="password" class="form-control p-2 mb-3" id="emailInp1" name="password" placeholder="********" autocomplete="current-password" required>
                         @error('password')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-success w-100 p-1 fw-bold" id="login-btn" type="submit">{{ __('LOGIN') }}</button>
+                        <button class="btn btn-success w-100 p-1  fw-bold" id="login-btn" type="submit">{{ __('LOGIN') }}</button>
                     </div>
                 </form>
             </div>
