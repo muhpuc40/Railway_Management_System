@@ -14,7 +14,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="Bangladesh Railway">
         </div>
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="{{ '/' }}">Home</a></li>
             <li><a href="#">Train Information</a></li>
             <li><a href="#">Contact Us</a></li>
             
