@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Train extends Model
 {
-    use HasFactory;
+    protected $table = 'train_list';
+
     public function stopages()
     {
-        return $this->hasMany(Stopage::class);
+        return $this->hasMany(Stopage::class, 'train_id');
     }
 }

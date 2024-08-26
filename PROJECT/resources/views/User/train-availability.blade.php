@@ -47,12 +47,68 @@
                             <p class="ticket-availability">Available Tickets</p>
                             <p class="ticket-available">{{ $ticket['available'] }}</p>
                             @auth
-                                <a href="{{ url('/booking-page-url') }}" class="btn btn-success">BOOK NOW</a>
+                                <a class="btn btn-success">BOOK NOW</a>
                             @else
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">BOOK NOW</button>
                             @endauth
                         </div>
                         @endforeach
+                    </div>
+                    <!-- Add seat selection section (this will be toggled by clicking "BOOK NOW") -->
+                    <div class="mt-4 seat-selection">
+                        <h5>Choose your seat(s)** Maximum 4 seats can be booked at a time.</h5>
+                        <p>To know seat number(s), rest the cursor on your desired seat(s). Click on it to select or deselect.</p>
+                        
+                        <label>Select Coach</label>
+                        <select class="form-control" id="sl">
+                            <option value="CHA">THA - 17 Seat(s)</option>
+                        </select>
+
+                        <div class="seat-selection-container">
+                            <div class="seat-map">
+                                <!-- Dynamically generated seats -->
+                                @foreach ($trains as $train)
+                                    @foreach ($train['tickets'] as $ticket)
+                                        @for ($i = 1; $i <= $ticket['available']; $i++)
+                                            <div class="seat {{ in_array($i, $ticket['bookedSeats']) ? 'booked' : '' }}">
+                                                THA-{{ $i }}
+                                            </div>
+                                        @endfor
+                                    @endforeach
+                                @endforeach
+                            </div>
+
+                            <div class="seat-details">
+                                <h5>Seat Details</h5>
+                                <table>
+                                    <tr>
+                                        <td>Class:</td>
+                                        <td>S_CHAIR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Seat:</td>
+                                        <td>THA-31</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fare:</td>
+                                        <td>৳150.00</td>
+                                    </tr>
+                                    <tr class="total">
+                                        <td>Total:</td>
+                                        <td>৳150.00</td>
+                                    </tr>
+                                </table>
+                                
+                                <label>Boarding Station *</label>
+                                <select class="form-control">
+                                    <option value="Kamalapur Station">Kamalapur Station (06:30 AM)</option>
+                                </select>
+
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-success">CONTINUE PURCHASE</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,7 +117,6 @@
     </div>
     </div>
 </section>
-
 <!-- Login Modal -->
 <div id="loginModal" class="modal fade" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stopage extends Model
 {
-    use HasFactory;
+    protected $table = 'train_stopage';
 
-
-    protected $fillable = ['train_id', 'sequence', 'source_station', 'time'];
-
+    public function train()
+    {
+        return $this->belongsTo(Train::class, 'train_id');
+    }
 }
