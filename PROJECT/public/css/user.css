@@ -4,6 +4,10 @@ body {
     margin-top: 75px; /* Adjust based on the height of your navbar */
 }
 
+body::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}
+
 /* Your existing navbar CSS */
 nav {
     width: 100%;
@@ -414,21 +418,21 @@ p {
 .modal-content {
     border-radius: 5px;
     background-color: #fff;
-    height: 280px; /* Default height */
+    height: 250px; /* Default height */
     max-height: 400px; /* Set maximum height for the modal */
     overflow-y: auto; /* Enable scrolling if content exceeds max height */
 }
 
 .modal-body {
-    padding-top: 0.5rem; /* Reduce top padding */
-    padding-bottom: 0.5rem; /* Reduce bottom padding */
+    padding-top: -5rem; /* Reduce top padding */
+    padding-bottom: -5rem; /* Reduce bottom padding */
     /*padding: 1rem;  Adjust padding for content */
     overflow-y: auto; /* Enable scrolling within the body if content exceeds max height */
 }
 
 .modal-header {
-    border-bottom: none;
-    padding-bottom: 0.5rem;
+    padding-bottom: -1.2rem; /* Reduce top padding */
+    margin-bottom: -1.2rem; /* Reduce top margin to bring footer closer to button */
 }
 
 .modal-title {
@@ -436,14 +440,24 @@ p {
     font-size: 1.25rem;
     font-weight: bold;
     color: #28a745; /* Green color */
+    padding-top: 0.1rem; /* Reduce top padding */  
+    font-weight: bold;
 }
 
 .btn-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px; /* Adjust position to be closer to the top */
+    right: 10px; /* Adjust position to be closer to the right */
     background: none;
     border: none;
+    font-size: 0.69rem; /* Adjust the size using font-size */
+    opacity: 0.7; /* Make the button less prominent */
+    color: #0e6322 !important; /* Set the button color */
+}
+
+.btn-close:hover {
+    opacity: 1; /* Increase visibility on hover */
+    color: #0b4d1a !important; /* Slightly darker green on hover */
 }
 
 #emailInp1 {
@@ -456,7 +470,7 @@ p {
     color: #a9a9a9;
 }
 
-#login-btn{
+#login-btn {
     background-color: #0e6322; /* Darker green color */
     border-color: #28a745; /* Green color */
     font-size: 1rem;
@@ -464,14 +478,19 @@ p {
     padding: 5px 10px; /* Adjust padding for button content */
     text-align: center; /* Center the text */
     white-space: nowrap; /* Prevent text wrapping */
-    margin-top: 0.5rem;
+    margin-top: 0.1rem; /* Reduce margin to decrease distance to footer */
+    margin-bottom: 0rem; /* Reduce the distance between the button and footer links */
 }
 
 #login-btn:hover {
     background-color: #218838;
     border-color: #1e7e34;
 }
-
+.modal-footer {
+    padding-top: -3rem; /* Reduce top padding */
+    margin-top: -3rem; /* Further reduce the top margin to bring footer closer to button */
+    padding-bottom: 0.25rem; /* Optional: Adjust bottom padding if necessary */
+}
 .modal-footer a {
     font-size: 0.875rem;
     color: #04882b; /* Red color for links */
@@ -489,4 +508,178 @@ p {
 
 .shadow {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Steat */
+
+/* Container */
+.mt-4.seat-selection {
+    display: none;
+
+    padding: 0px;
+    background-color: #fafafa;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Headings */
+.mt-4.seat-selection h5 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.mt-4.seat-selection h6 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #444;
+}
+
+/* Select Box */
+.mt-4.seat-selection label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+.mt-4.seat-selection select.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Container for seat map and details */
+.seat-selection-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Seat Map Container */
+.seat-map {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    margin-top: 20px;
+}
+
+.seat {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff9800;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.seat.booked {
+    background-color: #dcdcdc;
+    cursor: not-allowed;
+}
+
+.seat.selected {
+    background-color: #22356f;
+}
+
+.seat:hover:not(.booked):not(.selected) {
+    background-color: #ffa726;
+}
+
+/* Seat Details */
+.seat-details {
+    width: 30%;
+    height: 300px;
+    max-width: 400px;
+    min-width: 280px;
+    background-color: #f8f8f8;
+    padding: 10px; /* Reduced padding */
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* Seat Details Table */
+.seat-details h5 {
+    font-size: 16px; /* Reduced font size */
+    margin-bottom: 10px; /* Reduced bottom margin */
+}
+
+.seat-details table {
+    width: 100%;
+}
+
+.seat-details td {
+    font-size: 13px; /* Reduced font size */
+    padding: 3px 0; /* Reduced padding */
+}
+
+.seat-details .total td {
+    font-size: 14px; /* Reduced font size */
+    font-weight: bold;
+    color: #008000;
+}
+
+/* Boarding Station */
+.seat-details select.form-control {
+    width: 100%;
+    padding: 6px; /* Reduced padding */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px; /* Reduced font size */
+    color: #555;
+    margin-top: 10px; /* Reduced margin */
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+/* Button Styling */
+.d-flex.justify-content-end {
+    margin-top: 15px; /* Reduced margin */
+    text-align: center;
+}
+
+.d-flex.justify-content-end .btn-success {
+    background-color: #008000;
+    color: #fff;
+    border: none;
+    padding: 10px 25px; /* Reduced padding */
+    border-radius: 20px;
+    font-size: 14px; /* Reduced font size */
+    cursor: pointer;
+}
+
+.d-flex.justify-content-end .btn-success:hover {
+    background-color: #005700;
+}
+
+/* Select Box Container */
+.seat-selection label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+.seat-selection select#sl {
+    width: 400px; /* Adjust the width to your preference */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
 }

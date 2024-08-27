@@ -48,8 +48,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center mt-3">
-                        <button type="submit" class="btn btn-primary btn-block">{{ __('Search Trains') }}</button>
+                    <div class="p-2 row justify-content-center mt-3">
+                        <button type="submit" class=" btn btn-primary btn-block">{{ __('Search Trains') }}</button>
                     </div>
                 </form>
             </div>
