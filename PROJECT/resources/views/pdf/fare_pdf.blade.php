@@ -48,11 +48,19 @@
             text-align: center;
 
         }
+        .logo-left {
+            position: absolute;
+            top: 1px;
+            left: 5px;
+            width: 50px; /* Reduced width */
+            height: 50px; /* Reduced height */
+        }
+
     </style>
 </head>
 <body>
     <div class="header">
-
+    <img src="{{ public_path('images/logo.png') }}" class="logo-left">
         <h1>BANGLADESH RAILWAY</h1>
 
     </div>
