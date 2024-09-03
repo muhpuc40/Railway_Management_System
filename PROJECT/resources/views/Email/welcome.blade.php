@@ -335,8 +335,7 @@
 
                                                             <div
                                                                 style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
-                                                                <a href="" style="color:#575757">Unsubscribe</a> from
-                                                                our emails
+                                                                <i color:#575757>Please note :This email is automatically generated. Do not reply to this email.</i>
                                                             </div>
 
                                                         </td>
