@@ -23,7 +23,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <b><label for="dateOfJourney">{{ __('Date of Journey') }}</label></b>
-                                <input type="date" class="form-control" id="dateOfJourney" name="dateOfJourney" autocomplete="off">
+                                <input type="date" class="form-control" id="dateOfJourney" name="dateOfJourney" value="{{ $today }}" min="{{ $today }}" max="{{ $maxDate }}" autocomplete="off">
                             </div>
                         </div>
 
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="p-2 row justify-content-center mt-3">
-                        <button type="submit" class=" btn btn-primary btn-block">{{ __('Search Trains') }}</button>
+                        <button type="submit" class="btn btn-primary btn-block">{{ __('Search Trains') }}</button>
                     </div>
                 </form>
             </div>
@@ -61,8 +61,18 @@
         </div>
     </div>   
 @endsection
+
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-@endsection
+<script>
+    $(document).ready(function(){
+        // Set min and max date for the date input
+        let today = "{{ $today }}";
+        let maxDate = "{{ $maxDate }}";
 
+        $('#dateOfJourney').attr('min', today);
+        $('#dateOfJourney').attr('max', maxDate);
+    });
+</script>
+@endsection
