@@ -59,7 +59,7 @@ class AuthController extends Controller
         if ($user->save()) { // Check if the user was successfully saved
             $toemail = $user->email; // Use the email from the saved user instance
             $sub = "Welcome to Bangladesh Railway";
-            $msg = "{$user->name}, are you ready to enjoy our facilities?";
+            $msg = "{$user->name}";
 
             try {
                 Mail::to($toemail)->send(new WelcomeMail($sub, $msg)); // Ensure WelcomeMail Mailable is correctly implemented
