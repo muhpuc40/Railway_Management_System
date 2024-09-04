@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Train;
@@ -9,11 +11,12 @@ class AvailabilityController extends Controller
 {
     public function showAvailability(Request $request)
     {
+        // Fetching stations and date of journey from the request
         $fromStation = $request->input('fromStation', 'Kamalapur');
         $toStation = $request->input('toStation', 'Chittagong');
         $dateOfJourney = $request->input('dateOfJourney', '2024-09-01');
 
-        // Fetch trains and their stopages from the database
+        // Fetching trains with stopages that match the route
         $trains = Train::whereHas('stopages', function ($query) use ($fromStation, $toStation) {
             $query->where('source_station', $fromStation)
                   ->orWhere('source_station', $toStation);
@@ -24,36 +27,43 @@ class AvailabilityController extends Controller
         }])
         ->get()
         ->map(function ($train) use ($fromStation, $toStation) {
-            // Find the departure and arrival stops
+            // Find departure and arrival stops
             $departure = $train->stopages->firstWhere('source_station', $fromStation);
             $arrival = $train->stopages->firstWhere('source_station', $toStation);
 
             if ($departure && $arrival) {
-                // Fetch fare information for this train
+                // Fetch fare information for this train and route
                 $fares = Fare::where('train_id', $train->id)
                     ->where('source_id', $departure->id)
                     ->where('destination_id', $arrival->id)
                     ->get();
 
-                    $tickets = $fares->map(function ($fare) use ($train) {
-                        // Fetch available seats from train_details
-                        $trainDetail = DB::table('train_details')
-                            ->where('train_id', $train->id)
-                            ->where('class', $fare->class)
-                            ->first();
+                $tickets = $fares->map(function ($fare) use ($train) {
+                    // Fetch train details like coaches and seats
+                    $trainDetail = DB::table('train_details')
+                        ->where('train_id', $train->id)
+                        ->where('class', $fare->class)
+                        ->get();
 
-                    $capacity = $trainDetail->capacity ?? 0;
-                    $bookedSeats = [1, 2, 3]; // Replace this with the actual booked seats logic
-                    $availableSeats = $capacity - count($bookedSeats);
+                    // Replace this with the actual booked seats logic based on the real booking system
+                    $bookedSeats = [1, 2, 3]; 
 
                     return [
                         'class' => $fare->class,
                         'price' => $fare->fare,
-                        'available' => $trainDetail ? $trainDetail->capacity : 0, // Capacity from train_details
-                        'bookedSeats' => [1, 2, 3], // This should be dynamic, replace with your logic
+                        'available' => $trainDetail->sum('capacity'), // Summing up capacity of coaches
+                        'bookedSeats' => $bookedSeats, // Temporary placeholder
+                        'coaches' => $trainDetail->map(function ($detail) {
+                            return [
+                                'coach' => $detail->coach,
+                                'seats' => $detail->capacity,
+                                'coach_class' => $detail->class,
+                            ];
+                        })->toArray(),
                     ];
                 });
 
+                // Return formatted train data
                 return [
                     'name' => $train->name,
                     'code' => $train->id,
@@ -66,9 +76,9 @@ class AvailabilityController extends Controller
             }
 
             return null;
-        })->filter(); // Remove null values
+        })->filter(); // Filtering out null values
 
-        // Pass data to the view
+        // Passing data to the view
         return view('user.train-availability', compact('fromStation', 'toStation', 'dateOfJourney', 'trains'));
     }
 }
