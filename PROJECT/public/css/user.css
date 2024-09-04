@@ -579,7 +579,7 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ff9800;
+    background-color: green; /* Available seat */
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -587,7 +587,7 @@ p {
 }
 
 .seat.booked {
-    background-color: #dcdcdc;
+    background-color: red; /* Booked seat */
     cursor: not-allowed;
 }
 
@@ -683,3 +683,4 @@ p {
     font-size: 14px;
     color: #555;
 }
+
