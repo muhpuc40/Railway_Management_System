@@ -629,6 +629,15 @@ p {
     color: #008000;
 }
 
+.seat-details-body {
+    display: table-row-group;
+    visibility: visible;
+}
+
+.seat-details-body tr {
+    background-color: white; /* Or any appropriate color */
+}
+
 /* Boarding Station */
 .seat-details select.form-control {
     width: 100%;
@@ -679,3 +688,72 @@ p {
     color: #555;
 }
 
+/* Purchase ticket */
+.alert {
+    background-color: #006400;
+    color: white;
+    font-size: 14px;
+}
+
+.card-title {
+    font-size: 32px;
+}
+
+.card-text {
+    font-size: 12px;
+    color: #666;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+input.form-control,
+select.form-control {
+    background-color: #ffffff;
+}
+
+.list-group-item {
+    font-size: 14px;
+}
+
+.journey-details h5 {
+    text-align: left;
+    font-weight: bold;
+    color: #1b1b1b;
+    margin-bottom: 1rem;
+}
+
+.journey-box {
+    background-color: #eeeeee; /* Light background color */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    position: relative;
+}
+
+.journey-box::before {
+    top: 0;
+}
+
+.journey-box::after {
+    bottom: 0;
+}
+
+.journey-box p {
+    margin: 5px 0; /* Reduced space between lines */
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.line {
+    height: 2px;
+    background-color: #dfdfdf; /* Same yellow or custom color */
+    margin: 10px 0; /* Add some space above and below the line */
+}

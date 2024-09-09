@@ -53,11 +53,15 @@ class AvailabilityController extends Controller
                         $faresByClass = Fare::where('train_id', $train->id)
                             ->get()
                             ->keyBy('class');  // Group fares by class for easier lookup by class name
+                        
+                            $availableSeatsByClass = $trainDetails->groupBy('class')->map(function ($details) {
+                                return $details->sum('capacity');  // Sum the capacity for each class
+                            });
                     
                         return [
                             'class' => $fare->class,
                             'fare' => $fare->fare,  // Default fare associated with the selected class
-                            'available' => $trainDetails->sum('capacity'),
+                            'available' => $availableSeatsByClass->get($fare->class) ?? 0,
                             'coaches' => $trainDetails->map(function ($detail) use ($faresByClass) {
                                 // Find the specific fare for the coach's class
                                 $coachFare = $faresByClass->get($detail->class);

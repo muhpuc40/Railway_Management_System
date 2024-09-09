@@ -180,17 +180,17 @@ document.addEventListener('click', function (event) {
 });
 
 // Function to add seat details to the seat details table
+// Function to add seat details to the seat details table
 function addSeatToDetails(seatClass, seatNumber, seatFare) {
     console.log(`Adding seat to details: ${seatClass} ${seatNumber} ${seatFare}`);
 
-    // Select the tbody element
-    const tbody = document.querySelector('.seat-details-body');
-    if (!tbody) {
+    const tbody = $('.seat-details-body'); // Using jQuery to select the table body
+    if (!tbody.length) {
         console.error('Seat details table body not found');
         return;
     }
 
-    // Ensure seatFare is a number and use parseFloat to handle string inputs
+    // Ensure seatFare is a number
     const fare = parseFloat(seatFare);
     if (isNaN(fare)) {
         console.error(`Invalid seat fare: ${seatFare}`);
@@ -198,35 +198,37 @@ function addSeatToDetails(seatClass, seatNumber, seatFare) {
     }
 
     // Check if the seat is already added
-    const existingRow = tbody.querySelector(`tr[data-seat="${seatNumber}"]`);
-    if (existingRow) {
+    const existingRow = tbody.find(`tr[data-seat="${seatNumber}"]`);
+    if (existingRow.length) {
         console.warn(`Seat ${seatNumber} is already added to the table.`);
         return;
     }
 
     // Dynamically create a new row for the seat
-    const newRow = document.createElement('tr');
-    newRow.setAttribute('data-seat', seatNumber);
-    newRow.innerHTML = `
-        <td>${seatClass}</td>
-        <td>${seatNumber}</td>
-        <td>৳${fare.toFixed(2)}</td>
-    `;
+    const newRow = $(`
+        <tr data-seat="${seatNumber}">
+            <td>${seatClass}</td>
+            <td>${seatNumber}</td>
+            <td>৳${fare.toFixed(2)}</td>
+        </tr>
+    `);
 
     // Append the new row to the table body
-    tbody.appendChild(newRow);
+    tbody.append(newRow);
 
-    console.log('Row added:', newRow.outerHTML);
+    console.log('Row added:', newRow.prop('outerHTML'));
 
     // Update the total fare after adding the seat
     updateTotalFare();
 }
 
 // Function to remove seat details from the table
+// Function to remove seat details from the table
 function removeSeatFromDetails(seatNumber) {
-    const seatDetailsTableBody = document.querySelector('.seat-details-body');
-    const seatRow = seatDetailsTableBody.querySelector(`tr[data-seat="${seatNumber}"]`);
-    if (seatRow) {
+    const tbody = $('.seat-details-body'); // Using jQuery to select the table body
+    const seatRow = tbody.find(`tr[data-seat="${seatNumber}"]`);
+
+    if (seatRow.length) {
         seatRow.remove();
         console.log(`Seat ${seatNumber} removed from details.`);
         updateTotalFare();
@@ -237,21 +239,21 @@ function removeSeatFromDetails(seatNumber) {
 
 // Function to update the total fare in the seat details
 function updateTotalFare() {
-    const seatDetailsTableBody = document.querySelector('.seat-details-body');
     let total = 0;
-
-    seatDetailsTableBody.querySelectorAll('tr').forEach(row => {
-        const fare = parseFloat(row.cells[2].textContent.replace('৳', '')); // Remove currency sign for calculation
+    $('.seat-details-body tr').each(function() {
+        const fare = parseFloat($(this).find('td:nth-child(3)').text().replace('৳', ''));
         if (!isNaN(fare)) total += fare;
     });
 
-    const totalCell = document.querySelector('.total td:last-child');
-    if (totalCell) {
-        totalCell.textContent = `৳${total.toFixed(2)}`;
+    const totalCell = $('.total td:last-child');
+    if (totalCell.length) {
+        totalCell.text(`৳${total.toFixed(2)}`);
     }
 
     console.log('Total fare updated:', total);
 }
+
+
 
        
 
