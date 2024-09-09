@@ -57,12 +57,13 @@ Route::get('/train-availability', [AvailabilityController::class, 'showAvailabil
   //  ->middleware('auth') 
     ->name('train-availability.show');
 
-Route::middleware('guest')->group(function () {
+Route::middleware(['redirect_if_authenticated'])->group(function () {
     Route::get('login', [AuthController::class, 'loginIndex']);
     Route::get('register', [AuthController::class, 'registerIndex']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
 });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);

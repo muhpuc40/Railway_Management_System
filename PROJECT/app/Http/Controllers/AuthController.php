@@ -31,8 +31,14 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+        
+            if ($user->role === 'admin') { // or $user->is_admin == 1
+                return redirect('/Admin');
+            }
+        
             return redirect('/');
-        }
+        }       
 
         toastr()->error('Invalid email or password');
         return redirect('login');
