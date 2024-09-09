@@ -18,6 +18,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('train_id');
             $table->string('class');
             $table->string('seat_number');
+            $table->string('coach')->nullable();
             $table->timestamps();
 
             // Foreign key constraint (if you have a trains table)

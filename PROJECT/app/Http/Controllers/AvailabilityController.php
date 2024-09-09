@@ -38,31 +38,36 @@ class AvailabilityController extends Controller
                     ->where('destination_id', $arrival->id)
                     ->get();
 
-                $tickets = $fares->map(function ($fare) use ($train) {
-                    // Fetch train details like coaches and seats
-                    $trainDetail = DB::table('train_details')
-                        ->where('train_id', $train->id)
-                        ->where('class', $fare->class)
-                        ->get();
-
-                    // Replace this with the actual booked seats logic based on the real booking system
-                    $bookedSeats = [1, 2, 3]; 
-
-                    return [
-                        'class' => $fare->class,
-                        'price' => $fare->fare,
-                        'available' => $trainDetail->sum('capacity'), // Summing up capacity of coaches
-                        'bookedSeats' => $bookedSeats, // Temporary placeholder
-                        'coaches' => $trainDetail->map(function ($detail) {
-                            return [
-                                'coach' => $detail->coach,
-                                'seats' => $detail->capacity,
-                                'coach_class' => $detail->class,
-                            ];
-                        })->toArray(),
-                    ];
-                });
-
+                    $fares = Fare::where('train_id', $train->id)
+                    ->where('source_id', $departure->id)
+                    ->where('destination_id', $arrival->id)
+                    ->get();
+                
+                    $tickets = $fares->map(function ($fare) use ($train) {
+                        // Fetch all train details without restricting by class
+                        $trainDetails = DB::table('train_details')
+                            ->where('train_id', $train->id)
+                            ->get();  // Removed the 'class' restriction
+                        
+                        // No class restriction, fetch all train details for all classes
+                        return [
+                            'class' => $fare->class,
+                            'price' => $fare->fare,
+                            'available' => $trainDetails->sum('capacity'), // Sum up all available seats across all classes
+                            'coaches' => $trainDetails->map(function ($detail) {
+                                return [
+                                    'coach' => $detail->coach,
+                                    'seats' => $detail->capacity, // Capacity of seats in this coach
+                                    'bookedSeats' => [], // No booked seats will be shown here
+                                    'coach_class' => $detail->class, // Ensure class is passed correctly
+                                ];
+                            })->toArray(),
+                        ];
+                    });
+                    
+                    
+                    
+                                        
                 // Return formatted train data
                 return [
                     'name' => $train->name,
@@ -80,5 +85,7 @@ class AvailabilityController extends Controller
 
         // Passing data to the view
         return view('user.train-availability', compact('fromStation', 'toStation', 'dateOfJourney', 'trains'));
+        
+        
     }
 }
