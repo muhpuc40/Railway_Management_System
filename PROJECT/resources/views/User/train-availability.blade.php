@@ -43,7 +43,7 @@
                     @foreach($train['tickets'] as $ticket)
                         <div class="ticket-type">
                             <p class="ticket-class">{{ $ticket['class'] }}</p>
-                            <p class="ticket-price">৳{{ $ticket['price'] }}</p>                            
+                            <p class="ticket-price">৳{{ $ticket['fare'] }}</p>                            
                             <p class="ticket-availability">Available Tickets</p>
                             <p class="ticket-available">{{ $ticket['available'] }}</p>
                             @auth
@@ -69,32 +69,31 @@
                         <div class="seat-selection-container">
                         <div id="seat-map" class="seat-map">
                             <!-- Dynamically generated seats will appear here -->
-                        </div>
-                      
+                        </div>                     
                             <div class="seat-details">
                                 <h5>Seat Details</h5>
-                                <table>
-                                    <tr>
-                                        <td>Class:</td>
-                                        <td>S_CHAIR</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Seat:</td>
-                                        <td>THA-31</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fare:</td>
-                                        <td>৳150.00</td>
-                                    </tr>
-                                    <tr class="total">
-                                        <td>Total:</td>
-                                        <td>৳150.00</td>
-                                    </tr>
+                                <table id="seatDetailsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Seat Number</th>
+                                            <th>Fare</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="seat-details-body">
+                                        <!-- Rows will be dynamically added here -->
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="total">
+                                            <td colspan="2">Total</td>
+                                            <td>৳0.00</td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
-                                
+                 
                                 <label>Boarding Station *</label>
                                 <select class="form-control">
-                                    <option value="Kamalapur Station">Kamalapur Station (06:30 AM)</option>
+                                    <option value="Kamalapur Station">{{ $train['departure_station'] }}</option>
                                 </select>
 
                                 <div class="d-flex justify-content-end">

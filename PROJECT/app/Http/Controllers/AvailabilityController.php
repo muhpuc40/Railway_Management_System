@@ -47,26 +47,32 @@ class AvailabilityController extends Controller
                         // Fetch all train details without restricting by class
                         $trainDetails = DB::table('train_details')
                             ->where('train_id', $train->id)
-                            ->get();  // Removed the 'class' restriction
-                        
-                        // No class restriction, fetch all train details for all classes
+                            ->get();
+                    
+                        // Group fares by class for easy lookup
+                        $faresByClass = Fare::where('train_id', $train->id)
+                            ->get()
+                            ->keyBy('class');  // Group fares by class for easier lookup by class name
+                    
                         return [
                             'class' => $fare->class,
-                            'price' => $fare->fare,
-                            'available' => $trainDetails->sum('capacity'), // Sum up all available seats across all classes
-                            'coaches' => $trainDetails->map(function ($detail) {
+                            'fare' => $fare->fare,  // Default fare associated with the selected class
+                            'available' => $trainDetails->sum('capacity'),
+                            'coaches' => $trainDetails->map(function ($detail) use ($faresByClass) {
+                                // Find the specific fare for the coach's class
+                                $coachFare = $faresByClass->get($detail->class);
+                    
                                 return [
                                     'coach' => $detail->coach,
-                                    'seats' => $detail->capacity, // Capacity of seats in this coach
-                                    'bookedSeats' => [], // No booked seats will be shown here
-                                    'coach_class' => $detail->class, // Ensure class is passed correctly
+                                    'seats' => $detail->capacity,
+                                    'bookedSeats' => [],  // Placeholder for booked seats
+                                    'coach_class' => $detail->class,
+                                    'fare' => $coachFare ? $coachFare->fare : null,  // Assign fare specific to the coach class
                                 ];
                             })->toArray(),
                         ];
                     });
-                    
-                    
-                    
+                                                                       
                                         
                 // Return formatted train data
                 return [
