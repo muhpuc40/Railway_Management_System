@@ -7,6 +7,7 @@ use App\Http\Controllers\FareController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\AvailabilityController;
+use App\Http\Controllers\TicketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,4 +73,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/download-fare-pdf', [PdfController::class, 'downloadFarePdf'])->name('download_fare_pdf');
 Route::get('/generate-ticket', [PdfController::class, 'generateTicket']);
+
+Route::get('/purchase-ticket', [TicketController::class, 'showPurchasePage'])->name('purchase-ticket');
+Route::post('/purchase-ticket', [TicketController::class, 'processTicket'])->name('submit-ticket');
 
