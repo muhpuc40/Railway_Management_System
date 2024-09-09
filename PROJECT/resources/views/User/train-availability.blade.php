@@ -48,8 +48,7 @@
                             <p class="ticket-available">{{ $ticket['available'] }}</p>
                             @auth
                                 <a class="btn btn-success book-now-btn" 
-                                data-class="{{ $ticket['class'] }}" 
-                                data-coaches="{{ json_encode($ticket['coaches']) }}">BOOK NOW</a>
+                                data-class="{{ $ticket['class'] }}" data-coaches="{{ json_encode($ticket['coaches']) }}">BOOK NOW</a>
                             @else
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">BOOK NOW</button>
                             @endauth
@@ -68,10 +67,9 @@
                         </select>
 
                         <div class="seat-selection-container">
-                            <div class="seat-map">
-                                <!-- Dynamically generated seats -->
-                                <!-- This part should be handled dynamically using JavaScript based on the selected coach -->
-                            </div>
+                        <div id="seat-map" class="seat-map">
+                            <!-- Dynamically generated seats will appear here -->
+                        </div>
                       
                             <div class="seat-details">
                                 <h5>Seat Details</h5>
@@ -148,4 +146,5 @@
     </div>
 </div>
 <script src="{{ asset('js/user.js') }}"></script>
+
 @endsection

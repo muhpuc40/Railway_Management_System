@@ -37,62 +37,81 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             const selectedClass = this.getAttribute('data-class');
             const coaches = JSON.parse(this.getAttribute('data-coaches'));
-
+    
             const coachSelect = this.closest('.train-details').querySelector('.coach-select');
             coachSelect.innerHTML = '';
-
+    
             // Filter coaches for the selected class
             const filteredCoaches = coaches.filter(function (coach) {
                 return coach.coach_class === selectedClass;
             });
-
-            // Reset seat map if class is changed
+    
             const seatMapContainer = this.closest('.train-details').querySelector('.seat-map');
-            seatMapContainer.innerHTML = ''; // Clear seat map to avoid previous seat data
-            
-            // Add coach options
+            seatMapContainer.innerHTML = ''; // Clear previous seat data
+    
             filteredCoaches.forEach(function (coach) {
                 const option = document.createElement('option');
                 option.value = coach.coach;
                 option.textContent = `${coach.coach} - ${coach.seats} Seat(s)`;
                 coachSelect.appendChild(option);
             });
-
-            // No coaches available
+    
+            // No coaches available for the selected class
             if (!filteredCoaches.length) {
                 coachSelect.innerHTML = '<option value="">No coaches available</option>';
             }
-
+    
             // Automatically trigger a coach change event to load seats for the first coach
             const event = new Event('change');
             coachSelect.dispatchEvent(event);
         });
     });
 
-    // Handle coach selection and seat map population
+    // Handle coach selection and seat map population based on capacity
     document.addEventListener('change', function (event) {
+        if (event.target.classList.contains('class-select')) {
+            // Clear coach dropdown when class changes
+            const coachSelect = document.querySelector('.coach-select');
+            coachSelect.innerHTML = '';
+    
+            const selectedClass = event.target.value;
+            const bookNowBtn = event.target.closest('.train-details').querySelector('.book-now-btn');
+            const coaches = JSON.parse(bookNowBtn.getAttribute('data-coaches'));
+    
+            // Filter the coaches based on the selected class
+            const filteredCoaches = coaches.filter(coach => coach.class === selectedClass);
+    
+            // Populate the coach dropdown with filtered coaches
+            filteredCoaches.forEach(coach => {
+                const option = document.createElement('option');
+                option.value = coach.coach;
+                option.textContent = `${coach.coach} - ${coach.seats} Seat(s)`;
+                coachSelect.appendChild(option);
+            });
+    
+            // Reset the seat map
+            const seatMapContainer = document.querySelector('.seat-map');
+            seatMapContainer.innerHTML = '<p>Please select a coach to see available seats.</p>';
+        }
+    
         if (event.target.classList.contains('coach-select')) {
             const selectedCoach = event.target.value;
             const bookNowBtn = event.target.closest('.train-details').querySelector('.book-now-btn');
             const coaches = JSON.parse(bookNowBtn.getAttribute('data-coaches'));
-
+    
             const seatMapContainer = event.target.closest('.seat-selection').querySelector('.seat-map');
             seatMapContainer.innerHTML = '';
-
-            // Find data for the selected coach
+    
+            // Find the data for the selected coach within the selected class
             const selectedCoachData = coaches.find(coach => coach.coach === selectedCoach);
-
+    
             if (selectedCoachData) {
-                const bookedSeats = selectedCoachData.bookedSeats || [];
                 for (let i = 1; i <= selectedCoachData.seats; i++) {
                     const seatDiv = document.createElement('div');
                     seatDiv.classList.add('seat');
                     seatDiv.textContent = `${selectedCoachData.coach}-${i}`;
                     
-                    if (bookedSeats.includes(i)) {
-                        seatDiv.classList.add('booked');
-                    }
-
+                    // All seats are available since there is no booking data yet
                     seatMapContainer.appendChild(seatDiv);
                 }
             } else {
@@ -100,4 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    
+    
+    
 });
