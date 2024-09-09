@@ -601,22 +601,17 @@ p {
 
 /* Seat Details */
 .seat-details {
+    display: block; /* Ensure this is visible */
     width: 30%;
     height: 300px;
     max-width: 400px;
     min-width: 280px;
     background-color: #f8f8f8;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     border-radius: 4px;
     border: 1px solid #ddd;
     box-sizing: border-box;
     flex-shrink: 0;
-}
-
-/* Seat Details Table */
-.seat-details h5 {
-    font-size: 16px; /* Reduced font size */
-    margin-bottom: 10px; /* Reduced bottom margin */
 }
 
 .seat-details table {
@@ -624,12 +619,12 @@ p {
 }
 
 .seat-details td {
-    font-size: 13px; /* Reduced font size */
-    padding: 3px 0; /* Reduced padding */
+    font-size: 13px;
+    padding: 3px 0;
 }
 
 .seat-details .total td {
-    font-size: 14px; /* Reduced font size */
+    font-size: 14px;
     font-weight: bold;
     color: #008000;
 }
