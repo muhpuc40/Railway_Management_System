@@ -127,8 +127,11 @@
         }
     });
 
-    // Seat click event to handle selection
-    // Seat click event to handle selection
+// Seat click event to handle selection
+// Global object to store selected seats by class and coach
+let selectedSeats = {};
+
+// Document event listener for seat selection
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('seat')) {
         const seatDiv = event.target;
@@ -156,22 +159,38 @@ document.addEventListener('click', function (event) {
 
         const seatClass = selectedCoachData.coach_class;
         const seatFare = selectedCoachData.fare;
+        const classCoachKey = `${seatClass}-${selectedCoach}`; // Create key for class-coach combination
+
+        // Calculate total selected seats across all classes and coaches
+        const totalSelectedSeats = Object.values(selectedSeats).reduce((acc, seats) => acc + seats.length, 0);
 
         // Toggle the selected state (color change)
         if (seatDiv.classList.contains('selected')) {
             // Deselect the seat
             seatDiv.classList.remove('selected');
             seatDiv.style.backgroundColor = '';
+
+            // Remove the seat from selectedSeats
+            if (selectedSeats[classCoachKey]) {
+                selectedSeats[classCoachKey] = selectedSeats[classCoachKey].filter(seat => seat !== selectedSeat);
+            }
+
             removeSeatFromDetails(selectedSeat); // Call to remove seat details
         } else {
-            const selectedSeatsCount = document.querySelectorAll('.seat.selected').length;
-            if (selectedSeatsCount < 4) {
+            if (totalSelectedSeats < 4) {
                 // Select the seat
                 seatDiv.classList.add('selected');
                 seatDiv.style.backgroundColor = '#007bff';
+
+                // Add the seat to selectedSeats
+                if (!selectedSeats[classCoachKey]) {
+                    selectedSeats[classCoachKey] = [];
+                }
+                selectedSeats[classCoachKey].push(selectedSeat);
+
                 addSeatToDetails(seatClass, selectedSeat, seatFare); // Call to add seat details
             } else {
-                alert('You can only select up to 4 seats.');
+                alert('You can only select up to 4 seats across all classes and coaches.');
             }
         }
 
@@ -179,7 +198,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-// Function to add seat details to the seat details table
 // Function to add seat details to the seat details table
 function addSeatToDetails(seatClass, seatNumber, seatFare) {
     console.log(`Adding seat to details: ${seatClass} ${seatNumber} ${seatFare}`);
@@ -205,13 +223,11 @@ function addSeatToDetails(seatClass, seatNumber, seatFare) {
     }
 
     // Dynamically create a new row for the seat
-    const newRow = $(`
-        <tr data-seat="${seatNumber}">
-            <td>${seatClass}</td>
-            <td>${seatNumber}</td>
-            <td>৳${fare.toFixed(2)}</td>
-        </tr>
-    `);
+    const newRow = $(`<tr data-seat="${seatNumber}">
+        <td>${seatClass}</td>
+        <td>${seatNumber}</td>
+        <td>৳${fare.toFixed(2)}</td>
+    </tr>`);
 
     // Append the new row to the table body
     tbody.append(newRow);
@@ -222,7 +238,6 @@ function addSeatToDetails(seatClass, seatNumber, seatFare) {
     updateTotalFare();
 }
 
-// Function to remove seat details from the table
 // Function to remove seat details from the table
 function removeSeatFromDetails(seatNumber) {
     const tbody = $('.seat-details-body'); // Using jQuery to select the table body
@@ -240,7 +255,7 @@ function removeSeatFromDetails(seatNumber) {
 // Function to update the total fare in the seat details
 function updateTotalFare() {
     let total = 0;
-    $('.seat-details-body tr').each(function() {
+    $('.seat-details-body tr').each(function () {
         const fare = parseFloat($(this).find('td:nth-child(3)').text().replace('৳', ''));
         if (!isNaN(fare)) total += fare;
     });
@@ -252,6 +267,42 @@ function updateTotalFare() {
 
     console.log('Total fare updated:', total);
 }
+
+// Seat map population based on selected coach
+document.addEventListener('change', function (event) {
+    if (event.target.classList.contains('coach-select')) {
+        const selectedCoach = event.target.value;
+        const bookNowBtn = event.target.closest('.train-details').querySelector('.book-now-btn');
+        const coaches = JSON.parse(bookNowBtn.getAttribute('data-coaches'));
+
+        const seatMapContainer = event.target.closest('.seat-selection').querySelector('.seat-map');
+        seatMapContainer.innerHTML = ''; // Clear previous seats
+
+        // Find the data for the selected coach
+        const selectedCoachData = coaches.find(coach => coach.coach === selectedCoach);
+
+        if (selectedCoachData) {
+            const classCoachKey = `${selectedCoachData.coach_class}-${selectedCoachData.coach}`; // Key for selected class-coach
+
+            for (let i = 1; i <= selectedCoachData.seats; i++) {
+                const seatDiv = document.createElement('div');
+                seatDiv.classList.add('seat');
+                seatDiv.textContent = `${selectedCoachData.coach}-${i}`; // Display seat number
+
+                // Restore previously selected seats for this class and coach
+                if (selectedSeats[classCoachKey] && selectedSeats[classCoachKey].includes(seatDiv.textContent)) {
+                    seatDiv.classList.add('selected');
+                    seatDiv.style.backgroundColor = '#007bff';
+                }
+
+                seatMapContainer.appendChild(seatDiv); // Add each seat to the seat map
+            }
+        } else {
+            seatMapContainer.innerHTML = '<p>No seats available for the selected coach.</p>';
+        }
+    }
+});
+
 
 
 
