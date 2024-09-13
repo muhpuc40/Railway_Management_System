@@ -689,71 +689,240 @@ p {
 }
 
 /* Purchase ticket */
-.alert {
-    background-color: #006400;
-    color: white;
-    font-size: 14px;
-}
 
-.card-title {
-    font-size: 32px;
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  #alrt {
+    background-color: #065f46;
+    color: rgb(245, 245, 245);
+    padding: 8px; /* Adding a uniform padding */
+    padding-bottom: 0px; /* Specifically reducing padding at the bottom */
+    border-radius: 6px;
+    margin-bottom: 8px; /* Adding a small margin at the bottom */
+    display: flex;
+    align-items: center;
 }
-
-.card-text {
-    font-size: 12px;
-    color: #666;
-}
-
-.card-header {
-    background-color: #f8f9fa;
-    font-weight: bold;
+  
+  .alert-text {
+    font-size: 13px;
+    color: #ffffff;
+  }
+  
+  .content {
+    display: flex;
+    gap: 24px;
+  }
+  
+  .form-section {
+    flex-grow: 1;
+  }
+  
+  #pass_title {
     font-size: 18px;
-}
-
-.form-label {
-    font-weight: bold;
-}
-
-input.form-control,
-select.form-control {
-    background-color: #ffffff;
-}
-
-.list-group-item {
+    font-weight: 600;
+    color: #f97316;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .passenger {
+    margin-bottom: 24px;
+  }
+  
+  .passenger-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .label {
+    display: block;
     font-size: 14px;
-}
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #374151;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+  }
+  
 
-.journey-details h5 {
-    text-align: left;
-    font-weight: bold;
-    color: #1b1b1b;
-    margin-bottom: 1rem;
-}
-
-.journey-box {
-    background-color: #eeeeee; /* Light background color */
-    padding: 20px;
+ /* Timer Section */
+.timer {
+    background-color: #fff7ed; /* Softer, lighter orange tone */
+    padding: 16px;
+    border: 1px solid #f97316; /* Orange border */
     border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    margin-top: 15px;
+    margin-bottom: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.timer-value {
+    font-size: 24px; /* Reduced font size */
+    font-weight: 700;
+    color: #f97316;
+}
+
+.timer-text {
+    font-size: 14px;
+    font-weight: 600; /* Bold text */
+    color: #374151;
+}
+
+/* Journey Details Section */
+.journey-details {
+    background-color: #f9fafb; /* Very light gray for background */
+    padding: 16px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #e5e7eb; /* Light border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
     position: relative;
 }
 
-.journey-box::before {
-    top: 0;
+.details-title {
+    font-size: 14px; /* Slightly smaller font */
+    font-weight: 600;
+    color: #f97316; /* Orange color matching the timer */
+    margin-bottom: 12px; /* Increased spacing */
+    text-transform: uppercase; /* Uppercase title */
+    border-bottom: 1px solid #e5e7eb; /* Add line below the title */
+    padding-bottom: 8px; /* Adjust spacing to fit the line */
 }
 
-.journey-box::after {
-    bottom: 0;
+.details-subtitle {
+    font-size: 16px; /* Larger font for the subtitle */
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1f2937; /* Darker gray for emphasis */
 }
 
-.journey-box p {
-    margin: 5px 0; /* Reduced space between lines */
-    font-size: 1rem;
+.details-text {
+    font-size: 14px;
+    font-weight: 500; /* Slightly bolder text */
+    margin-bottom: 4px;
+    color: #6b7280; /* Softer gray for the text */
+   
+    padding-bottom: 8px; /* Adjust spacing to fit the line */
+}
+
+#d-text {
+
+    border-bottom: 1px solid #e5e7eb; /* Add line below the text */
+
+}
+
+  /* Add this to user.css to style the card */
+
+#pass_card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#con_info{
+    font-size: 18px;
+    font-weight: 600;
+    color: #f97316;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#payment_card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 675px;
+    margin: left;
+  }
+  
+  #payment_card .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #payment_card .total-amount {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  #total-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e53935;
+  }
+  
+  #payment_card .fare-details {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  #pay_det{
+    font-size: 18px;
+    font-weight: 600;
+    color: #f97316;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  #payment_card .fare-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  #payment_card .fare-text, #payment_card .fare-total {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  #total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e53935;
+  }
+  
+  #payment_card .fare-note {
+    font-size: 14px;
+    color: #777;
+    margin-top: 10px;
     line-height: 1.5;
-}
-
-.line {
-    height: 2px;
-    background-color: #dfdfdf; /* Same yellow or custom color */
-    margin: 10px 0; /* Add some space above and below the line */
-}
+  }
+  

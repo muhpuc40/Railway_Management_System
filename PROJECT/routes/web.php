@@ -39,14 +39,10 @@ Route::get('/admin/Show_Schedule', [ScheduleController::class, 'showSchedule'])-
 
 Route::put('update_schedule/{train_id}', [ScheduleController::class, 'updatesc'])->name('update_schedule');
 
-
-
-
 Route::get('/Admin/Train_Details/{id}', [TrainController::class, 'trainDetails'])->name('train_details');
 
 Route::put('/update-train/{id}', [TrainController::class, 'updateTrain'])->name('update_train');
 Route::delete('/delete-train/{id}', [TrainController::class, 'deleteTrain'])->name('delete_train');
-
 
 Route::get('/admin/create_fare/{train_id}', [FareController::class, 'createFare'])->name('create_fare');
 Route::post('/admin/store_fare', [FareController::class, 'storeFare'])->name('store_fare');
@@ -74,6 +70,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/download-fare-pdf', [PdfController::class, 'downloadFarePdf'])->name('download_fare_pdf');
 Route::get('/generate-ticket', [PdfController::class, 'generateTicket']);
 
-Route::get('/purchase-ticket', [TicketController::class, 'showPurchasePage'])->name('purchase-ticket');
-Route::post('/purchase-ticket', [TicketController::class, 'processTicket'])->name('submit-ticket');
+Route::get('/purchase-ticket', [TicketController::class, 'showPurchasePage'])->name('user.purchase_ticket');
+Route::post('/purchase-ticket', [TicketController::class, 'processTicket'])->name('user.process_ticket');
+
 
