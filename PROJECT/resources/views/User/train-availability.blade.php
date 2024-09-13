@@ -29,16 +29,16 @@
                 </div>
                 <!-- Train Details Section -->
                 <div class="train-details" style="display:none;">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div>
-                            <p><strong>{{ $train['departure_time'] }}</strong></p>
-                            <p>{{ $train['departure_station'] }}</p>
-                        </div>
-                        <div>
-                            <p><strong>{{ $train['arrival_time'] }}</strong></p>
-                            <p>{{ $train['arrival_station'] }}</p>
-                        </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div>
+                        <p id="departure-time"><strong>{{ $train['departure_time'] }}</strong></p>
+                        <p id="departure-station">{{ $train['departure_station'] }}</p>
                     </div>
+                    <div>
+                        <p id="arrival-time"><strong>{{ $train['arrival_time'] }}</strong></p>
+                        <p id="arrival-station">{{ $train['arrival_station'] }}</p>
+                    </div>
+                </div>
                     <div class="ticket-section d-flex justify-content-left">
                     @foreach($train['tickets'] as $ticket)
                         <div class="ticket-type">
@@ -95,7 +95,6 @@
                                 <select class="form-control">
                                     <option value="Kamalapur Station">{{ $train['departure_station'] }}</option>
                                 </select>
-
                                 <div class="d-flex justify-content-end">
                                     <button class="btn btn-success">CONTINUE PURCHASE</button>
                                 </div>
@@ -147,3 +146,6 @@
 <script src="{{ asset('js/user.js') }}"></script>
 
 @endsection
+<script>
+    const purchaseTicketUrl = "{{ route('user.purchase_ticket') }}";
+</script>

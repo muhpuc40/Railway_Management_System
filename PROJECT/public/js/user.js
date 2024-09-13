@@ -8,11 +8,41 @@
             event.stopPropagation();
             const trainCard = this.closest('.card');
             const details = trainCard.querySelector('.train-details');
-
+    
+            // Toggle display of the train details
             details.style.display = details.style.display === 'none' || details.style.display === '' ? 'block' : 'none';
             this.classList.toggle('rotated');
+    
+            // Declare a variable to store train details
+            const trainName = trainCard.querySelector('.card-body span').textContent.trim();
+            const departureTime = details.querySelector('#departure-time strong').textContent.trim();
+            const departureStation = details.querySelector('#departure-station').textContent.trim();
+            const arrivalTime = details.querySelector('#arrival-time strong').textContent.trim();
+            const arrivalStation = details.querySelector('#arrival-station').textContent.trim();
+               
+            // Log or store the variables for further use
+            console.log({
+                trainName: trainName,
+                departureTime: departureTime,
+                departureStation: departureStation,
+                arrivalTime: arrivalTime,
+                arrivalStation: arrivalStation
+            });
+    
+            // You can store these values in a variable for further use or manipulation
+            const trainDetails = {
+                trainName: trainName,
+                departureTime: departureTime,
+                departureStation: departureStation,
+                arrivalTime: arrivalTime,
+                arrivalStation: arrivalStation
+            };
+    
+            // Example: Use trainDetails object in some functionality
+            // ...
         });
     });
+    
 
     // Handle "Book Now" button click
     const bookNowButtons = document.querySelectorAll('.ticket-type .btn-success');
@@ -131,11 +161,17 @@
 // Global object to store selected seats by class and coach
 let selectedSeats = {};
 
-// Document event listener for seat selection
+// Variable to store the coach for each selected seat
+let seatToCoachMap = {};
+
+// Variable to store all selected coaches
+let selectedCoaches = new Set(); // Using a Set to avoid duplicates
+
+// Event listener for seat selection
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('seat')) {
         const seatDiv = event.target;
-        const selectedSeat = seatDiv.textContent; // Get the seat number (e.g., THA-31)
+        const selectedSeat = seatDiv.textContent.trim(); // Get the seat number (e.g., THA-31)
 
         // Ensure the seat class and fare are retrieved from the selected coach
         const trainDetails = seatDiv.closest('.train-details');
@@ -147,6 +183,10 @@ document.addEventListener('click', function (event) {
         }
 
         const selectedCoach = selectedCoachElement.value;
+
+        // Add console log for selected coach
+        console.log('Selected Coach:', selectedCoach); // Log the coach value here
+
         const bookNowBtn = trainDetails.querySelector('.book-now-btn');
         const coaches = JSON.parse(bookNowBtn.getAttribute('data-coaches'));
 
@@ -175,6 +215,14 @@ document.addEventListener('click', function (event) {
                 selectedSeats[classCoachKey] = selectedSeats[classCoachKey].filter(seat => seat !== selectedSeat);
             }
 
+            // Remove seat from the seatToCoachMap
+            delete seatToCoachMap[selectedSeat];
+
+            // If no more seats are selected in this coach, remove the coach from selectedCoaches
+            if (selectedSeats[classCoachKey].length === 0) {
+                selectedCoaches.delete(selectedCoach);
+            }
+
             removeSeatFromDetails(selectedSeat); // Call to remove seat details
         } else {
             if (totalSelectedSeats < 4) {
@@ -188,11 +236,20 @@ document.addEventListener('click', function (event) {
                 }
                 selectedSeats[classCoachKey].push(selectedSeat);
 
+                // Map the seat to its coach
+                seatToCoachMap[selectedSeat] = selectedCoach;
+
+                // Add the selected coach to the selectedCoaches set
+                selectedCoaches.add(selectedCoach);
+
                 addSeatToDetails(seatClass, selectedSeat, seatFare); // Call to add seat details
             } else {
-                alert('You can only select up to 4 seats across all classes and coaches.');
+                alert('You can only select 4 seats.');
             }
         }
+
+        // Log the current selected coaches
+        console.log('Selected Coaches:', Array.from(selectedCoaches));
 
         updateTotalFare(); // Update the total fare after selecting/deselecting
     }
@@ -237,6 +294,7 @@ function addSeatToDetails(seatClass, seatNumber, seatFare) {
     // Update the total fare after adding the seat
     updateTotalFare();
 }
+
 
 // Function to remove seat details from the table
 function removeSeatFromDetails(seatNumber) {
@@ -302,6 +360,157 @@ document.addEventListener('change', function (event) {
         }
     }
 });
+
+// Declare a global variable to store selected seat count
+let selectedSeatCount = selectedSeats.length;
+
+document.querySelectorAll('.seat-selection .btn-success').forEach(function (button) {
+    button.addEventListener('click', function () {
+        const trainCard = this.closest('.card');
+        const trainDetails = trainCard.querySelector('.train-details');
+        
+        if (!trainDetails) {
+            console.error('Train details not found');
+            return;
+        }
+
+        // Get journey details from the seat details table
+        const seatDetailsTable = document.querySelector('#seatDetailsTable tbody.seat-details-body');
+        const selectedSeats = [];
+        const seatClassSet = new Set(); // To store all selected seat classes
+        
+        if (seatDetailsTable) {
+            seatDetailsTable.querySelectorAll('tr').forEach(function (row) {
+                const seatClass = row.querySelector('td:nth-child(1)').textContent.trim();
+                const seatNumber = row.querySelector('td:nth-child(2)').textContent.trim();
+        
+                selectedSeats.push({
+                    seatClass: seatClass,
+                    seatNumber: seatNumber
+                });
+        
+                // Add the seat class to the Set to store all unique seat classes
+                seatClassSet.add(seatClass);
+            });
+        
+            // Convert the Set to an array to display or use all selected seat classes
+            const allSelectedSeatClasses = Array.from(seatClassSet);
+        
+            // Update the global seat count variable
+            selectedSeatCount = selectedSeats.length;
+
+            // Log or use the array of all selected seat classes
+            console.log('All selected seat classes:', allSelectedSeatClasses);
+            console.log('Selected seat count:', selectedSeatCount); // Log seat count for debugging
+        
+            // You can now display or use all the seat classes      
+        } else {
+            console.error('Seat details table not found');
+        }
+        
+        // Use all selected seat classes instead of only the first one
+        const coachType = selectedSeats.length > 0 ? Array.from(seatClassSet).join(', ') : 'N/A';
+        const selectedSeatNumbers = selectedSeats.map(seat => seat.seatNumber);
+        
+        const selectedCoachesArray = Array.from(selectedCoaches);
+        const encodedCoaches = encodeURIComponent(selectedCoachesArray.join(','));
+        // Fetch journey details directly from the train-details section using IDs (like in the chevron logic)
+        const trainName = trainCard.querySelector('.card-body span').textContent.trim();
+        const departureTime = trainDetails.querySelector('#departure-time strong').textContent.trim();
+        const departureStation = trainDetails.querySelector('#departure-station').textContent.trim();
+        const arrivalTime = trainDetails.querySelector('#arrival-time strong').textContent.trim();
+        const arrivalStation = trainDetails.querySelector('#arrival-station').textContent.trim();
+
+        // Log the values after fetching them
+        console.log('Train Name:', trainName);
+        console.log('Departure Time:', departureTime);
+        console.log('Departure Station:', departureStation);
+        console.log('Arrival Time:', arrivalTime);
+        console.log('Arrival Station:', arrivalStation);
+        console.log('Coach Type:', coachType); // Now fetched from all selected seat classes
+        console.log('Selected Seats:', selectedSeatNumbers);
+        console.log('Selected Coaches:', Array.from(selectedCoaches));
+        
+        // Validate all required details
+        if (!trainName || !departureTime || !departureStation || !arrivalTime || !arrivalStation || !coachType || !selectedSeatNumbers.length || !Array.from(selectedCoaches)) {
+            console.error('Some journey details are missing.');
+            alert('Please fill out all required details before proceeding.');
+            return;
+        }
+        // Construct the URL with query parameters using journey details
+        const purchaseTicketUrl = `/purchase-ticket?trainName=${encodeURIComponent(trainName)}&departureTime=${encodeURIComponent(departureTime)}&departureStation=${encodeURIComponent(departureStation)}&arrivalTime=${encodeURIComponent(arrivalTime)}&arrivalStation=${encodeURIComponent(arrivalStation)}&selectedSeats=${encodeURIComponent(JSON.stringify(selectedSeatNumbers))}&className=${encodeURIComponent(coachType)}&coach=${encodedCoaches}`;
+
+        console.log(purchaseTicketUrl);
+
+        // Redirect to the purchase page with the details in the URL
+        window.location.href = purchaseTicketUrl;
+    });
+});
+
+console.log('Selected Seats Count of the:', selectedSeatCount);
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to generate passenger card HTML
+    function createPassengerCard(passengerNumber, isAuthenticated, authUserName) {
+        return `
+            <div class="card" id="pass_card">
+                <div class="passenger">
+                    <h4 class="passenger-title">Passenger ${passengerNumber}</h4>
+                    <div class="form-group">
+                        <label for="name${passengerNumber}" class="label">Name ${passengerNumber}${!isAuthenticated ? ' *' : ''}</label>
+                        <input type="text" id="name${passengerNumber}" class="input" 
+                            ${isAuthenticated && passengerNumber === 1 ? `value="${authUserName}"` : 'placeholder="Enter Full Name"'} />
+                    </div>
+                    <div class="form-group">
+                        <label for="type${passengerNumber}" class="label">Passenger Type</label>
+                        <select id="type${passengerNumber}" class="input">
+                            <option>Adult</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Simulating selectedSeats object for testing purposes
+    // Ensure the selectedSeats variable is correctly populated
+    let selectedSeats = window.selectedSeats || {};  // Assuming `selectedSeats` is a global object
+
+    // If selectedSeats is an object, convert to an array of keys to count the seats
+    const selectedSeatsCount = Object.keys(selectedSeats).length;
+
+    // Log the selectedSeats object to verify its structure
+    console.log('Selected Seats Object:', selectedSeats);
+    console.log('Selected Seats Count:', selectedSeatsCount);
+    console.log('Selected seat count:', selectedSeatCount);
+
+    // Container to add passenger cards
+    const container = document.getElementById('passenger-cards-container');
+
+    // If selectedSeatsCount is 0, fallback to at least 1 passenger
+    const passengerCount = selectedSeatsCount > 0 ? selectedSeatsCount : 1;
+
+    // Create and append passenger cards based on the selected seats count
+    for (let i = 1; i <= passengerCount; i++) {
+        container.insertAdjacentHTML('beforeend', createPassengerCard(i, isAuthenticated, authUserName));
+    }
+});
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
 
 
 
