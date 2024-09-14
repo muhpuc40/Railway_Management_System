@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
