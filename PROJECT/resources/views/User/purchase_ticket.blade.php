@@ -88,9 +88,8 @@
       <div class="total-amount">
         <h4 class="amount-title">Total Amount Payable: <span id="total-amount" class="amount-value">৳1594</span></h4>
        </div>
-
-        <div className="mb-4">
-            <img src="/placeholder.svg?height=100&width=600" alt="Train ticket information in Bengali" className="w-full" />
+        <div class="train_img">
+            <img src="{{ asset('images/BDRAILWAY_TICK.jpg') }}?" alt="Train ticket information in Bengali" />
         </div>
         <div class="fare-details">     
           <div id="paymentAcknowledgment">
@@ -117,9 +116,10 @@
             </div>
             <div class="payment-methods">
             <p id="pls_selct">Please select your payment method</p>
-                <button class="payment-method">Bkash <img src="path/to/bkash-logo.png" alt="Bkash"></button>
-                <button class="payment-method">Nagad <img src="path/to/nagad-logo.png" alt="Nagad"></button>
-                <button class="payment-method">Upay <img src="path/to/upay-logo.png" alt="Upay"></button>
+                <button class="payment-method"><img src="{{ asset('images/bkash_logo.png') }}" alt="Bkash"></button>
+                <button class="payment-method"><img src="{{ asset('images/nagad.png') }}" alt="Nagad"></button>
+                <button class="payment-method"><img src="{{ asset('images/rocket-logo.svg') }}" alt="Rocket"></button>
+                <button class="payment-method"><img src="{{ asset('images/upay.svg') }}" alt="Upay"></button>
                 <div class="proceed-button-container">
                     <button class="proceed-button" id="proceed-button">PROCEED TO PAYMENT</button>
                 </div>

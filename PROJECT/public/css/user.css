@@ -989,7 +989,22 @@ p {
 
 .payment-method img {
     float: center;
-    height: 24px;
+    height: 25px;
+    width: 70px;
+}
+
+.train_img {
+    text-align: center; /* Centers the image horizontally */
+    margin-top: 0px;   /* Adds space above the image */
+    margin-bottom: 15px;
+}
+
+.train_img img {
+    max-width: 100%;     /* Ensures the image scales down to fit its container */
+    height: auto;        /* Keeps the aspect ratio intact */
+    width: 650px;        /* Sets a specific width (adjust this value as needed) */
+    border-radius: 1px;  /* Adds rounded corners to the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Adds a subtle shadow for depth */
 }
 
 .proceed-button-container {
@@ -1017,8 +1032,6 @@ p {
     background-color: #075a20;
 }
 
-
-/* Styles for the payment acknowledgment section */
 #pls_selct{
     text-align: center;
     color: #474747;
@@ -1028,7 +1041,7 @@ p {
 }
 
 #paymentAcknowledgment {
-    background-color: #ffffff; /* Light grey background */
+    background-color: #ffffff; 
     padding: 10px;
     border-radius: 1px;
     margin-bottom: 0px;
@@ -1069,7 +1082,7 @@ p {
 
 /* Styles for the ticket refund policy section */
 #ticketRefundPolicy {
-    background-color: #ffffff; /* Light blue background */
+    background-color: #ffffff; 
     padding: 10px;
     border-radius: 1px;
     margin-bottom: 0px;
@@ -1080,7 +1093,7 @@ p {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
-    color: #16a34a; /* Teal color for the header */
+    color: #16a34a; 
 }
 
 #ticketRefundPolicy ul {
@@ -1089,6 +1102,6 @@ p {
 
 #ticketRefundPolicy ul li {
     font-size: 12px;
-    color: #000000; /* Dark teal for list items */
+    color: #000000; 
     margin-bottom: 0px;
 }
