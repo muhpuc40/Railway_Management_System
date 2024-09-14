@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Route;
+use App\Models\User; // Add this line to import the User model
+use Illuminate\Support\Facades\Auth; // Add this line to use the Auth facade
+use Illuminate\Support\Facades\Hash; // Add this line to use the Hash facade
 
 class TrainController extends Controller
 {
@@ -93,7 +96,7 @@ class TrainController extends Controller
 
     return redirect()->back()->with('success', 'Train updated successfully');
 }
-
+/*
 
     public function deleteTrain($id)
     {
@@ -116,7 +119,30 @@ class TrainController extends Controller
     
         return redirect()->back()->with('success', 'Train deleted successfully');
     }
-    
+  */
+  public function deleteTrain(Request $request, $id)
+{
+    $request->validate([
+        'password' => 'required',
+    ]);
+
+    // Check if the logged-in admin's password matches
+    if (Hash::check($request->password, Auth::user()->password)) {
+        // If password matches, proceed with deletion
+        DB::transaction(function() use ($id) {
+            DB::table('fares')->where('train_id', $id)->delete();
+            DB::table('train_stopage')->where('train_id', $id)->delete();
+            DB::table('train_day')->where('train_id', $id)->delete();
+            DB::table('train_details')->where('train_id', $id)->delete();
+            DB::table('train_list')->where('id', $id)->delete();
+        });
+
+        return redirect()->back()->with('success', 'Train deleted successfully');
+    } else {
+        return redirect()->back()->withErrors(['password' => 'Password does not match.']);
+    }
+}
+  
     public function trainDetails(string $id)
     {
         // Fetch train details along with route

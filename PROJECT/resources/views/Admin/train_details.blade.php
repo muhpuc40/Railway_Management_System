@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2 class="text-center mb-4">Train: {{ $train->name }} ~ 
+    <h2 class="text-center mb-4"><img src="{{asset('images/running-train-icon.svg')}}" alt=""> Train: {{ $train->name }} ~ 
         @if($stopages->isNotEmpty())
             Route: {{ $stopages->first()->source_station }} to {{ $stopages->last()->source_station }}
         @endif
