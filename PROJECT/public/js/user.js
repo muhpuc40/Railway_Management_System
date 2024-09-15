@@ -446,14 +446,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="passenger">
                     <h4 class="passenger-title">Passenger ${passengerNumber}</h4>
                     <div class="form-group">
-                        <label for="name${passengerNumber}" class="label">Name ${passengerNumber}${!isAuthenticated ? ' *' : ''}</label>
-                        <input type="text" id="name${passengerNumber}" class="input" 
+                        <label for="name${passengerNumber}" class="label">Name ${!isAuthenticated ? ' *' : ''}</label>
+                        <input name="name[]" type="text" id="name${passengerNumber}" class="input" 
                             ${isAuthenticated && passengerNumber === 1 ? `value="${authUserName}"` : 'placeholder="Enter Full Name"'}/>
                     </div>
                     <div class="form-group">
                         <label for="type${passengerNumber}" class="label">Passenger Type</label>
                         <select id="type${passengerNumber}" class="input">
-                            <option>Adult</option>
+                            <option name="Adult[]">Adult</option>
+                            <option name="Child[]">Child</option>
                         </select>
                     </div>
                 </div>
