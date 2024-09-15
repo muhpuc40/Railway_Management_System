@@ -94,7 +94,7 @@
                                 <select class="form-control">
                                     <option value="Kamalapur Station">{{ $train['departure_station'] }}</option>
                                 </select>
-                                <div class="d-flex justify-content-end">
+                                <div class="d-flex justify-content-center">
                                     <button class="btn btn-success">CONTINUE PURCHASE</button>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
             <div class="modal-body">
             <form class="row gy-2" action="{{ url('login') }}" method="post">
                 @csrf
-                <input type="hidden" name="redirect_to" value="/train-availability">
+                <input type="hidden" name="redirect_to" value="{{ route('train-availability.show') }}">
                 <div class="col-12">
                     <input type="email" class="form-control p-2" id="emailInp1" name="email" value="{{ old('email') }}" placeholder="Enter Email" autocomplete="email" required>
                     @error('email')
