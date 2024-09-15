@@ -603,7 +603,7 @@ p {
 .seat-details {
     display: block; /* Ensure this is visible */
     width: 30%;
-    height: 300px;
+    height: 310px;
     max-width: 400px;
     min-width: 280px;
     background-color: #f8f8f8;
@@ -651,12 +651,13 @@ p {
 }
 
 /* Button Styling */
-.d-flex.justify-content-end {
+.d-flex.justify-content-center {
+
     margin-top: 15px; /* Reduced margin */
     text-align: center;
 }
 
-.d-flex.justify-content-end .btn-success {
+.d-flex.justify-content-center .btn-success {
     background-color: #008000;
     color: #fff;
     border: none;
