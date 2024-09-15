@@ -22,27 +22,36 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
+{
+    $this->validate($request, [
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
 
-        $credentials = $request->only('email', 'password');
+    $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
         
-            if ($user->role === 'admin') { // or $user->is_admin == 1
-                return redirect('/Admin');
-            }
-        
-            return redirect('/');
-        }       
+        // Check if the user is an admin
+        if ($user->role === 'admin') {
+            return redirect('/Admin');
+        }
 
-        toastr()->error('Invalid email or password');
-        return redirect('login');
+        // Redirect to the provided redirect URL (if available)
+        if ($request->filled('redirect_to')) {
+            return redirect($request->input('redirect_to')); // Redirect to /train-availability
+        }
+
+        // Default redirect to the home page
+        return redirect('/');
     }
+
+    toastr()->error('Invalid email or password');
+    return redirect('login');
+}
+
+    
 
     public function register(Request $request)
     {

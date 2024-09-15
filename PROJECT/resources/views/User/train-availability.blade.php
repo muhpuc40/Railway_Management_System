@@ -65,7 +65,6 @@
                         <select class="form-control coach-select" id="sl">
                             <!-- Options will be dynamically added based on selected class -->
                         </select>
-
                         <div class="seat-selection-container">
                         <div id="seat-map" class="seat-map">
                             <!-- Dynamically generated seats will appear here -->
@@ -117,24 +116,26 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row gy-2" action="{{ url('login') }}" method="post">
-                    @csrf
-                    <div class="col-12">
-                        <input type="email" class="form-control p-2" id="emailInp1" name="email" value="{{ old('email') }}" placeholder="Enter Email" autocomplete="email" required>
-                        @error('email')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="col-12">
-                        <input type="password" class="form-control p-2 mb-3" id="emailInp1" name="password" placeholder="********" autocomplete="current-password" required>
-                        @error('password')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="col-12">
-                        <button class="btn btn-success w-100 p-1  fw-bold" id="login-btn" type="submit">{{ __('LOGIN') }}</button>
-                    </div>
-                </form>
+            <form class="row gy-2" action="{{ url('login') }}" method="post">
+                @csrf
+                <input type="hidden" name="redirect_to" value="/train-availability">
+                <div class="col-12">
+                    <input type="email" class="form-control p-2" id="emailInp1" name="email" value="{{ old('email') }}" placeholder="Enter Email" autocomplete="email" required>
+                    @error('email')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-12">
+                    <input type="password" class="form-control p-2 mb-3" id="passwordInp1" name="password" placeholder="********" autocomplete="current-password" required>
+                    @error('password')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-success w-100 p-1 fw-bold" id="login-btn" type="submit">{{ __('LOGIN') }}</button>
+                </div>
+            </form>
+
             </div>
             <div class="modal-footer d-flex justify-content-between border-0">
                 <a href="{{ url('register') }}" class="text-decoration-none">{{ __('Register') }}</a>
