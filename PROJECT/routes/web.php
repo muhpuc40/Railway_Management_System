@@ -26,9 +26,7 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', [TrainController::class, 'class']);
 
-Route::get('/Admin', function () {
-    return view('admin.dashboard');
-});
+Route::get('/Admin', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/Admin/Create_Train', [TrainController::class, 'createTrain'])->name('Create_Train');
 Route::post('/Admin/Create_Train', [TrainController::class, 'storeTrain'])->name('Store_Train');

@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title', 'BD Railway E-Ticketing')
+@section('title', 'Home | BD Railway E-Ticketing')
 
 @section('content')
 <div class="container">

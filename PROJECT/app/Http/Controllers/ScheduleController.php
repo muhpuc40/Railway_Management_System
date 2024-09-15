@@ -64,6 +64,16 @@ class ScheduleController extends Controller
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
+
+                $route = DB::table('route')->where('route_name', $stopage['source_station'])->first();
+                if (!$route) {
+                    // If the route does not exist, insert it into the route table
+                    DB::table('route')->insert([
+                        'route_name' => $stopage['source_station'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
 
             DB::commit();

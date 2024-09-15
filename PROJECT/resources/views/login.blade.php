@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', 'Login | BD Railway E-Ticketing')
 @section('content')
 
 <section class="bg-body-tertiary">
