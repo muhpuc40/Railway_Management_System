@@ -27,11 +27,11 @@
         <div class="card" id="pass_card">         
           <div class="form-group">
             <label for="mobile" class="label">Mobile*</label>
-            <input type="tel" id="mobile" class="input">
+            <input type="tel" name="mobile" id="mobile" class="input">
           </div>
           <div class="form-group">
             <label for="email" class="label">Email*</label>
-            <input type="email" id="email" class="input">
+            <input type="email" name="email" id="email" class="input">
           </div>
         </div>
       </div>
@@ -111,21 +111,31 @@
           </div>
           <div class="payment-selection-container">
             <div class="tab-header">
-                <button class="tab-button active">Mobile Banking</button>
-                <button class="tab-button active">Credit or Debit Card</button>
+                <h4>Pay Now</h4>
             </div>
-            <div class="payment-methods">
-            <p id="pls_selct">Please select your payment method</p>
-                <button class="payment-method"><img src="{{ asset('images/bkash_logo.png') }}" alt="Bkash"></button>
-                <button class="payment-method"><img src="{{ asset('images/nagad.png') }}" alt="Nagad"></button>
-                <button class="payment-method"><img src="{{ asset('images/rocket-logo.svg') }}" alt="Rocket"></button>
-                <button class="payment-method"><img src="{{ asset('images/upay.svg') }}" alt="Upay"></button>
+            <div class="payment-methods justify-content-center">
+                
                 <div class="proceed-button-container">
-                    <button class="proceed-button" id="proceed-button">PROCEED TO PAYMENT</button>
+                <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
+                        token="if you have any token validation"
+                        postdata="your javascript arrays or objects which requires in backend"
+                        order="If you already have the transaction generated for current order"
+                        endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
+                </button>
                 </div>
           </div>
 <script src="{{ asset('js/user.js') }}"></script>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script>
     const isAuthenticated = {!! json_encode(auth()->check()) !!};  // Converts true/false into JSON format
     const authUserName = {!! json_encode(auth()->user()->name ?? '') !!};  // Converts username into JSON format
@@ -138,4 +148,31 @@
     $(document).on('change', '.seat-details-body', function() {
         updateTotalFare();  // Recalculate and update when seat details change
     });
+
+    var obj = {};
+obj.cus_name = $('#customer_name').val();
+obj.cus_phone = $('#mobile').val();
+obj.cus_email = $('#email').val();
+obj.cus_addr1 = $('#address').val();
+obj.amount = $('#total-amount').text().replace('৳', '').trim();  // Get the text without the currency symbol
+
+
+// Set the button postdata to the collected data
+$('#sslczPayBtn').prop('postdata', obj);
+
+// Log the object for debugging purposes
+console.log(obj);
+
+// Add SSLCommerz script
+(function (window, document) {
+    var loader = function () {
+        var script = document.createElement("script"),
+            tag = document.getElementsByTagName("script")[0];
+        // Use this for live: script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+        script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // Use this for sandbox
+        tag.parentNode.insertBefore(script, tag);
+    };
+    window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+})(window, document);
+
 </script>

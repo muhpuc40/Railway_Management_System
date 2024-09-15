@@ -9,6 +9,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,16 @@ Route::get('/generate-ticket', [PdfController::class, 'generateTicket']);
 Route::get('/purchase-ticket', [TicketController::class, 'showPurchasePage'])->name('user.purchase_ticket');
 Route::post('/purchase-ticket', [TicketController::class, 'processTicket'])->name('user.process_ticket');
 
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
