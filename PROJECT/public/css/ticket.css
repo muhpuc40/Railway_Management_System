@@ -1,0 +1,86 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        .container {
+            width: 186mm;
+            margin: 5px auto;
+            padding: 7px;
+            background-color: #ffffff;
+            border: 3px solid #28a745;
+            box-sizing: border-box; 
+            position: relative;
+            left: -3mm; /* Adjust this value to move further left */
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .header h1 {
+            color: #0073e6;
+            font-size: 32px;
+            margin: 0;
+            margin-top: 15px; /* Adjusted to push it down slightly */
+        }
+        .qr-code {
+            position: absolute;
+            top: 16px; /* Adjusted to move it just below the margin line */
+            right: 18px;
+            width: 80px;
+            height: 40px;
+            border: 1px solid #ddd;
+            text-align: center;
+            line-height: 80px;
+            font-size: 12px;
+            color: #aaa;
+        }
+        .logo-left {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            width: 50px; /* Reduced width */
+            height: 50px; /* Reduced height */
+        }
+
+        .journey-info, .passenger-info {
+            margin-bottom: 15px;
+            clear: both;
+        }
+        .section-title {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0;
+        }
+        .info-table td {
+            padding: 4px;
+            border: 1px solid #ddd;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            background-color: #f9f9f9;
+            width: 40%;
+        }
+        .footer {
+            font-size: 10px;
+            color: #888888;
+            text-align: left;
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+        }
+        .footer strong {
+            color: #000000;
+        }

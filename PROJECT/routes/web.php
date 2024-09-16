@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/download-fare-pdf', [PdfController::class, 'downloadFarePdf'])->name('download_fare_pdf');
 Route::get('/generate-ticket', [PdfController::class, 'generateTicket']);
+Route::get('/generate-ticket', [PdfController::class, 'generateTicket'])->name('generate-ticket');
 
 Route::get('/purchase-ticket', [TicketController::class, 'showPurchasePage'])->name('user.purchase_ticket');
 Route::post('/purchase-ticket', [TicketController::class, 'processTicket'])->name('user.process_ticket');

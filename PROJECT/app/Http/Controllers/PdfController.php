@@ -44,7 +44,7 @@ class PdfController extends Controller
         return $pdf->download('train_fares.pdf');
     }
 
-public function generateTicket()
+public function generateTicket(Request $request)
 {
     // Path to the images
   //  $logoPath = public_path('images/logo.png');
@@ -86,14 +86,16 @@ public function generateTicket()
        // 'bdLogoBase64' => $bdLogoBase64
     ];
 
-    // Load the view and pass the data
-    $pdf = PDF::loadView('pdf.ticket', $data);
+    if ($request->has('download')) {
+        // Load the view for PDF generation
+        $pdf = PDF::loadView('pdf.ticket', $data);
+        $filename =  $data['passenger_name'] . ' Train-Ticket.pdf';
+        return $pdf->download($filename);
+    }
 
+    // If no 'download' parameter, return the view for displaying the ticket
+    return view('user.user-ticket', $data);
     
-    $filename =  $data['passenger_name'] . ' Train-Ticket.pdf';
-
-    // Optionally stream or download the PDF
-    return $pdf->download($filename);
 }
 
 }

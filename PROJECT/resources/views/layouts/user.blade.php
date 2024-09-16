@@ -25,9 +25,21 @@
                     {{ auth()->user()->name }}
                 </a>
                 <div class="dropdown-menu">
-                    <h1 class="dropdown-header text-success ">{{ auth()->user()->name }}</h1>             
-                    <a class="btn btn-sm" href="{{ url('logout') }}"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
-                </div>
+    <h1 class="dropdown-header text-success">{{ auth()->user()->name }}</h1> 
+    
+    <a class="btn btn-sm" href="{{ url('/generate-ticket') }}">
+        <span class="picon"><i class="fas fa-ticket-alt"></i></span> Purchased Ticket
+    </a>
+    
+    <a class="btn btn-sm" href="{{ url('settings') }}">
+        <span class="picon"><i class="fas fa-cog"></i></span>My Profile
+    </a>
+
+    <a class="btn btn-sm" href="{{ url('logout') }}">
+        <span class="picon"><i class="fas fa-sign-out-alt"></i></span> Logout
+    </a>
+</div>
+
             </li>
             @else
             <!-- Login and Registration Links -->

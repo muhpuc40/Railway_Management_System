@@ -16,9 +16,9 @@ return [
 		'refund_status' => "/validator/api/merchantTransIDvalidationAPI.php",
 	],
 	'apiDomain' => $apiDomain,
-	'connect_from_localhost' => env("IS_LOCALHOST", false), // For Sandbox, use "true", For Live, use "false"
-	'success_url' => '/success',
-	'failed_url' => '/fail',
-	'cancel_url' => '/cancel',
-	'ipn_url' => '/ipn',
+	'connect_from_localhost' => env("IS_LOCALHOST", true), // For Sandbox, use "true", For Live, use "false"
+	'success_url' => '/Railway_Management_System/PROJECT/public/success',
+	'failed_url' => '/Railway_Management_System/PROJECT/testbbd/public/fail',
+	'cancel_url' => '/Railway_Management_System/PROJECT/testbbd/public/cancel',
+	'ipn_url' => '/Railway_Management_System/PROJECT/testbbd/public/ipn',
 ];

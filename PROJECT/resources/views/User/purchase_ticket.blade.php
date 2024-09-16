@@ -40,7 +40,7 @@
       <!-- Journey Details Section -->
       <div class="details-section">
         <div class="timer">
-          <div class="timer-value">4:24</div>
+          <div class="timer-value">5:00</div>
           <p class="timer-text">Remaining to initiate your payment process</p>
         </div>
         <div class="journey-details">
@@ -110,13 +110,10 @@
               </div>
           </div>
           <div class="payment-selection-container">
-            <div class="tab-header">
-                <h4>Pay Now</h4>
-            </div>
             <div class="payment-methods justify-content-center">
                 
                 <div class="proceed-button-container">
-                <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
+                <button class="btn btn-primary btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
                         postdata="your javascript arrays or objects which requires in backend"
                         order="If you already have the transaction generated for current order"

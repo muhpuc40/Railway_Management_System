@@ -109,7 +109,7 @@ class SslCommerzPaymentController extends Controller
         $post_data['cus_state'] = "";
         $post_data['cus_postcode'] = "";
         $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '8801XXXXXXXXX';
+        $post_data['cus_phone'] = '8801818173025';
         $post_data['cus_fax'] = "";
 
         # SHIPMENT INFORMATION
@@ -161,7 +161,8 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        echo "Transaction is Successful";
+       // echo "Transaction is Successful";
+        
         
 
         $tran_id = $request->input('tran_id');
@@ -188,13 +189,16 @@ class SslCommerzPaymentController extends Controller
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
 
-                echo "<br >Transaction is successfully Completed";
+               // echo "<br >Transaction is successfully Completed";
+               toastr()->success('Payment successful! Please check your email for the Ticket Slip.');
+               return redirect()->route('generate-ticket');
             }
         } else if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
             /*
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
-            echo "Transaction is successfully Completed";
+            //echo "Transaction is successfully Completed";
+            //return view('login')->with('success', 'Train added successfully!');
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
             echo "Invalid Transaction";
@@ -273,12 +277,14 @@ class SslCommerzPaymentController extends Controller
                         ->update(['status' => 'Processing']);
 
                     echo "Transaction is successfully Completed";
+                    //return view('register')->with('success', 'Train added successfully!');
                 }
             } else if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
 
                 #That means Order status already updated. No need to udate database.
 
                 echo "Transaction is already successfully Completed";
+               // return view('exampleHosted')->with('success', 'Train added successfully!');
             } else {
                 #That means something wrong happened. You can redirect customer to your product page.
 
