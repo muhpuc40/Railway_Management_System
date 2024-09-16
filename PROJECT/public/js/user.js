@@ -482,6 +482,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // Set the timer for 5 minutes (5 * 60 seconds)
+    let timeLeft = 5 * 60;
+
+    // Reference to the element where the time will be displayed
+    const timerElement = document.querySelector('.timer-value');
+
+    // Function to update the timer every second
+    const countdown = setInterval(() => {
+        // Calculate minutes and seconds
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        // Format seconds to always have two digits
+        const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+        // Display the time in the format mm:ss
+        timerElement.textContent = `${minutes}:${formattedSeconds}`;
+
+        // If time is up, stop the timer
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerElement.textContent = "Time's up!";
+        }
+
+        // Decrease time left by 1 second
+        timeLeft--;
+    }, 1000);
+
 
 
 
